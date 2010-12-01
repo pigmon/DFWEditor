@@ -1,0 +1,8 @@
+C:\Workspace\DFWEditor_Alpha\DFWEditor_Alpha\bin\Debug\DFWEditor_Alpha.exe
+C:\Workspace\DFWEditor_Alpha\DFWEditor_Alpha\bin\Debug\DFWEditor_Alpha.pdb
+C:\Workspace\DFWEditor_Alpha\DFWEditor_Alpha\obj\Debug\ResolveAssemblyReference.cache
+C:\Workspace\DFWEditor_Alpha\DFWEditor_Alpha\obj\Debug\DFWEditor_Alpha.Properties.Resources.resources
+C:\Workspace\DFWEditor_Alpha\DFWEditor_Alpha\obj\Debug\DFWEditor_Alpha.csproj.GenerateResource.Cache
+C:\Workspace\DFWEditor_Alpha\DFWEditor_Alpha\obj\Debug\DFWEditor_Alpha.exe
+C:\Workspace\DFWEditor_Alpha\DFWEditor_Alpha\obj\Debug\DFWEditor_Alpha.pdb
+C:\Workspace\DFWEditor_Alpha\DFWEditor_Alpha\obj\Debug\DFWEditor_Alpha.MainForm.resources
