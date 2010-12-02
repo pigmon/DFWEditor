@@ -10,5 +10,6 @@ namespace DFWEditor_Alpha
         public static String Ver = "Editor Alpha  ";
         public static bool bAreaBrush;
         public static bool bGrid;
+        public static int tileSize = 64;
     }
 }
