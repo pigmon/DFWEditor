@@ -1,0 +1,3 @@
+[submodule "DFWEditor"]
+	path = DFWEditor
+	url = git@github.com:pigmon/DFWEditor.git
