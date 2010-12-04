@@ -32,6 +32,8 @@
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_New = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Open = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_OpenLevel = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_OpenTexture = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Save = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_SaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,20 +43,20 @@
             this.Menu_AreaBrush = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSeparator();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TB_New = new System.Windows.Forms.ToolStripButton();
             this.TB_Open = new System.Windows.Forms.ToolStripButton();
             this.TB_Save = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.TB_Del = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSeparator();
             this.TB_Grid = new System.Windows.Forms.ToolStripButton();
             this.TB_AreaBrush = new System.Windows.Forms.ToolStripButton();
-            this.Menu_OpenLevel = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_OpenTexture = new System.Windows.Forms.ToolStripMenuItem();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Dlg_OpenTexture = new System.Windows.Forms.OpenFileDialog();
+            this.MainPanel = new DFWEditor_Alpha.DoubleBufferedPanel();
             this.MainMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,6 +100,19 @@
             this.Menu_Open.Name = "Menu_Open";
             this.Menu_Open.Size = new System.Drawing.Size(147, 22);
             this.Menu_Open.Text = "打开";
+            // 
+            // Menu_OpenLevel
+            // 
+            this.Menu_OpenLevel.Name = "Menu_OpenLevel";
+            this.Menu_OpenLevel.Size = new System.Drawing.Size(124, 22);
+            this.Menu_OpenLevel.Text = "关卡文件";
+            // 
+            // Menu_OpenTexture
+            // 
+            this.Menu_OpenTexture.Name = "Menu_OpenTexture";
+            this.Menu_OpenTexture.Size = new System.Drawing.Size(124, 22);
+            this.Menu_OpenTexture.Text = "贴图";
+            this.Menu_OpenTexture.Click += new System.EventHandler(this.Menu_OpenTexture_Click);
             // 
             // Menu_Save
             // 
@@ -174,35 +189,6 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
-            // 
-            // toolStripSplitButton1
-            // 
-            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
-            this.toolStripSplitButton1.Size = new System.Drawing.Size(6, 35);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 60);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.AutoScroll = true;
-            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control;
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.AutoScroll = true;
-            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.splitContainer1.Size = new System.Drawing.Size(1264, 622);
-            this.splitContainer1.SplitterDistance = 346;
-            this.splitContainer1.TabIndex = 2;
-            // 
             // TB_New
             // 
             this.TB_New.AutoSize = false;
@@ -223,7 +209,8 @@
             this.TB_Open.Name = "TB_Open";
             this.TB_Open.Size = new System.Drawing.Size(32, 32);
             this.TB_Open.Text = "toolStripButton1";
-            this.TB_Open.ToolTipText = "打开";
+            this.TB_Open.ToolTipText = "打开贴图";
+            this.TB_Open.Click += new System.EventHandler(this.TB_Open_Click);
             // 
             // TB_Save
             // 
@@ -236,6 +223,11 @@
             this.TB_Save.Text = "toolStripButton1";
             this.TB_Save.ToolTipText = "保存";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
+            // 
             // TB_Del
             // 
             this.TB_Del.AutoSize = false;
@@ -246,6 +238,11 @@
             this.TB_Del.Size = new System.Drawing.Size(32, 32);
             this.TB_Del.Text = "toolStripButton1";
             this.TB_Del.ToolTipText = "删除";
+            // 
+            // toolStripSplitButton1
+            // 
+            this.toolStripSplitButton1.Name = "toolStripSplitButton1";
+            this.toolStripSplitButton1.Size = new System.Drawing.Size(6, 35);
             // 
             // TB_Grid
             // 
@@ -275,23 +272,41 @@
             this.TB_AreaBrush.ToolTipText = "区域地形刷";
             this.TB_AreaBrush.CheckedChanged += new System.EventHandler(this.TB_AreaBrush_CheckedChanged);
             // 
-            // Menu_OpenLevel
+            // splitContainer1
             // 
-            this.Menu_OpenLevel.Name = "Menu_OpenLevel";
-            this.Menu_OpenLevel.Size = new System.Drawing.Size(124, 22);
-            this.Menu_OpenLevel.Text = "关卡文件";
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 60);
+            this.splitContainer1.Name = "splitContainer1";
             // 
-            // Menu_OpenTexture
+            // splitContainer1.Panel1
             // 
-            this.Menu_OpenTexture.Name = "Menu_OpenTexture";
-            this.Menu_OpenTexture.Size = new System.Drawing.Size(124, 22);
-            this.Menu_OpenTexture.Text = "贴图";
-            this.Menu_OpenTexture.Click += new System.EventHandler(this.Menu_OpenTexture_Click);
+            this.splitContainer1.Panel1.AutoScroll = true;
+            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.AutoScroll = true;
+            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.splitContainer1.Panel2.Controls.Add(this.MainPanel);
+            this.splitContainer1.Size = new System.Drawing.Size(1264, 622);
+            this.splitContainer1.SplitterDistance = 346;
+            this.splitContainer1.TabIndex = 2;
             // 
             // Dlg_OpenTexture
             // 
             this.Dlg_OpenTexture.Filter = "图像文件(*.bmp,*.png,*.gif) |*.bmp;*.png;*.gif";
             this.Dlg_OpenTexture.FileOk += new System.ComponentModel.CancelEventHandler(this.Dlg_OpenTexture_FileOk);
+            // 
+            // MainPanel
+            // 
+            this.MainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.MainPanel.BackColor = System.Drawing.SystemColors.Window;
+            this.MainPanel.Location = new System.Drawing.Point(4, 3);
+            this.MainPanel.Name = "MainPanel";
+            this.MainPanel.Size = new System.Drawing.Size(909, 618);
+            this.MainPanel.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -312,6 +327,7 @@
             this.MainMenu.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -345,6 +361,7 @@
         private System.Windows.Forms.ToolStripMenuItem Menu_OpenLevel;
         private System.Windows.Forms.ToolStripMenuItem Menu_OpenTexture;
         private System.Windows.Forms.OpenFileDialog Dlg_OpenTexture;
+        private DoubleBufferedPanel MainPanel;
     }
 }
 
