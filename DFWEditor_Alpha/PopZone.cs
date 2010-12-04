@@ -19,7 +19,6 @@ namespace DFWEditor_Alpha
         private bool bDelMe;
         private const int blank = 10;
         private const int imgSize = 32;
-        private bool bSeleted;
         private int blockX, blockY;
 
         public bool bMinimize;

@@ -66,11 +66,13 @@ namespace DFWEditor_Alpha
         private void Menu_ShowGrid_Click(object sender, EventArgs e)
         {
             TB_Grid.Checked = G.bGrid = Menu_ShowGrid.Checked;
+            MainPanel.Invalidate();
         }
 
         private void TB_Grid_CheckedChanged(object sender, EventArgs e)
         {
             Menu_ShowGrid.Checked = G.bGrid = TB_Grid.Checked;
+            MainPanel.Invalidate();
         }
 
         private void Menu_AreaBrush_Click(object sender, EventArgs e)
@@ -129,6 +131,28 @@ namespace DFWEditor_Alpha
             for (int i = 1; i < textureList.Count(); i++)
             {
                 textureList[i].Location = new Point(splitContainer1.Panel1.Left + 32, textureList[i - 1].Location.Y + textureList[i - 1].getHeight() + 32);
+            }
+        }
+
+        private void MainPanel_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+
+            if (G.bGrid)
+            {
+                Pen gridPen = new Pen(Color.Black, 1);
+                int w = MainPanel.Size.Width / G.tileSize + 1;
+                int h = MainPanel.Size.Height / G.tileSize + 1;
+
+                for (int i = 0; i < h; i++)
+                {
+                    g.DrawLine(gridPen, 0, i * G.tileSize, MainPanel.Size.Width, i * G.tileSize);
+                }
+
+                for (int i = 0; i < w; i++)
+                {
+                    g.DrawLine(gridPen, i * G.tileSize, 0, i * G.tileSize, MainPanel.Size.Height);
+                }
             }
         }
     }

@@ -299,19 +299,19 @@
             // 
             // MainPanel
             // 
-            this.MainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.MainPanel.AutoScroll = true;
             this.MainPanel.BackColor = System.Drawing.SystemColors.Window;
-            this.MainPanel.Location = new System.Drawing.Point(4, 3);
+            this.MainPanel.Location = new System.Drawing.Point(3, 3);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(909, 618);
+            this.MainPanel.Size = new System.Drawing.Size(2048, 2048);
             this.MainPanel.TabIndex = 0;
+            this.MainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MainPanel_Paint);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1264, 682);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
