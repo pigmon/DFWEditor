@@ -305,7 +305,10 @@
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.Size = new System.Drawing.Size(2048, 2048);
             this.MainPanel.TabIndex = 0;
+            this.MainPanel.MouseLeave += new System.EventHandler(this.MainPanel_MouseLeave);
             this.MainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MainPanel_Paint);
+            this.MainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseDown);
+            this.MainPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseUp);
             // 
             // MainForm
             // 

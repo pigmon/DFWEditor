@@ -13,6 +13,8 @@ namespace DFWEditor_Alpha
     {
         private List<PopZone> textureList;
         private Timer timer = new Timer();
+        private bool bMainPanelMouseDown;
+        private Point ptPainting;
 
         public MainForm()
         {
@@ -23,6 +25,8 @@ namespace DFWEditor_Alpha
             timer.Tick += new EventHandler(TimerProcess);
             timer.Interval = 50;
             timer.Start();
+
+            ptPainting = new Point(-64, -64);
         }
 
         ~MainForm()
@@ -138,6 +142,11 @@ namespace DFWEditor_Alpha
         {
             Graphics g = e.Graphics;
 
+            if (bMainPanelMouseDown && G.selectedTile != null)
+            {
+                g.DrawImage(G.selectedTile, new Rectangle(ptPainting.X, ptPainting.Y, G.tileSize, G.tileSize));
+            }
+
             if (G.bGrid)
             {
                 Pen gridPen = new Pen(Color.Black, 1);
@@ -154,6 +163,31 @@ namespace DFWEditor_Alpha
                     g.DrawLine(gridPen, i * G.tileSize, 0, i * G.tileSize, MainPanel.Size.Height);
                 }
             }
+        }
+
+        private void MainPanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            bMainPanelMouseDown = true;
+            ptPainting.X = e.X - e.X % G.tileSize;
+            ptPainting.Y = e.Y - e.Y % G.tileSize;
+
+            MainPanel.Invalidate();
+        }
+
+        private void MainPanel_MouseLeave(object sender, EventArgs e)
+        {
+            bMainPanelMouseDown = false;
+            ptPainting.X = ptPainting.Y = -64;
+
+            MainPanel.Invalidate();
+        }
+
+        private void MainPanel_MouseUp(object sender, MouseEventArgs e)
+        {
+            bMainPanelMouseDown = false;
+            ptPainting.X = ptPainting.Y = -64;
+
+            MainPanel.Invalidate();
         }
     }
 }
