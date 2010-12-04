@@ -78,6 +78,7 @@
             this.TileWindow.Size = new System.Drawing.Size(293, 271);
             this.TileWindow.TabIndex = 4;
             this.TileWindow.Paint += new System.Windows.Forms.PaintEventHandler(this.TileWindow_Paint);
+            this.TileWindow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TileWindow_MouseDown);
             // 
             // PopZone
             // 

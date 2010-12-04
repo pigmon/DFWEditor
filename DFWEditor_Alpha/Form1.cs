@@ -52,8 +52,14 @@ namespace DFWEditor_Alpha
                     textureList[i].Dispose();
                     textureList[i] = null;
                     textureList.RemoveAt(i);
-                    Invalidate();
+                    Refresh();
                 }
+            }
+
+            if (G.bRepaintTextures)
+            {
+                splitContainer1.Panel1.Refresh();
+                G.bRepaintTextures = false;
             }
         }
 
@@ -83,6 +89,11 @@ namespace DFWEditor_Alpha
         }
 
         private void Menu_OpenTexture_Click(object sender, EventArgs e)
+        {
+            Dlg_OpenTexture.ShowDialog(this);
+        }
+
+        private void TB_Open_Click(object sender, EventArgs e)
         {
             Dlg_OpenTexture.ShowDialog(this);
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace DFWEditor_Alpha
 {
@@ -11,5 +12,8 @@ namespace DFWEditor_Alpha
         public static bool bAreaBrush;
         public static bool bGrid;
         public static int tileSize = 64;
+        public static PopZone selectedTexture;
+        public static Image selectedTile;
+        public static bool bRepaintTextures;
     }
 }

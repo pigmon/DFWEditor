@@ -17,8 +17,13 @@ namespace DFWEditor_Alpha
         private List<Image> imgList;
         private int line;
         private bool bDelMe;
+        private const int blank = 10;
+        private const int imgSize = 32;
+        private bool bSeleted;
+        private int blockX, blockY;
 
         public bool bMinimize;
+        public int selectedIndex;
 
         public PopZone()
         {
@@ -45,7 +50,7 @@ namespace DFWEditor_Alpha
             if (count - line * 8 > 0)
                 line += 1;
 
-            int maxHeight = miniHeight + line * (32 + 10) + 10;
+            int maxHeight = miniHeight + line * (imgSize + blank) + blank;
             currentSize = new Size(350, maxHeight);
             Size = new Size(350, maxHeight);
 
@@ -111,6 +116,15 @@ namespace DFWEditor_Alpha
 
         }
 
+        private void DrawBlock(Graphics g, int x, int y)
+        {
+            Pen penBlock = new Pen(Color.Red, 1);
+            Brush brushBlock = new SolidBrush(Color.FromArgb(64, Color.Red));
+
+            g.DrawRectangle(penBlock, new Rectangle(x, y, imgSize - 1, imgSize - 1));
+            g.FillRectangle(brushBlock, new Rectangle(x, y, imgSize - 1, imgSize - 1));
+        }
+
         private void PopZone_Paint(object sender, PaintEventArgs e)
         {
 
@@ -120,14 +134,49 @@ namespace DFWEditor_Alpha
         {
             Graphics g = e.Graphics;
 
+            int length = 8;
             for (int i = 0; i < line; i++)
             {
-                for (int j = 0; j < 8; j++)
+                if (i == line - 1 && imgList.Count() % 8 != 0)
+                    length = imgList.Count() % 8;
+                for (int j = 0; j < length; j++)
                 {
-                    g.DrawImage(imgList[i * 8 + j], 
-                        new Rectangle(10 * j + j * 32, 10 + 10 * i + i * 32, 32, 32));
+                    g.DrawImage(imgList[i * 8 + j],
+                        new Rectangle(blank * j + imgSize * j, blank + blank * i + imgSize * i, imgSize, imgSize));
                 }
             }
+
+            if (G.selectedTexture == this && G.selectedTile != null)
+            {
+                DrawBlock(g, blockX, blockY);
+            }
+        }
+
+        private void TileWindow_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.X > 0 && e.X < TileWindow.Size.Width &&
+                e.Y > 0 && e.Y < TileWindow.Size.Height)
+            {
+                G.selectedTexture = this;
+            }
+            else
+                return;
+
+            G.selectedTile = null;
+
+            int i = e.X / (imgSize + blank);
+            int j = (e.Y - blank) / (imgSize + blank);
+
+            if (i > 7 || j * 8 + i > imgList.Count() - 1)
+                return;
+
+            G.selectedTile = imgList[j * 8 + i];
+            G.bRepaintTextures = true;
+
+            blockX = blank * i + imgSize * i;
+            blockY = blank + blank * j + imgSize * j;
+
+            TileWindow.Invalidate();
         }
     }
 }
