@@ -38,6 +38,8 @@ namespace DFWEditor_Alpha
 
             G.currentMap = new Map(Tb_MapName.Text, Decimal.ToInt32(Num_MapWidth.Value), Decimal.ToInt32(Num_MapHeight.Value));
 
+            G.bRepaintMainPanel = true;
+
             Close();
         }
     }

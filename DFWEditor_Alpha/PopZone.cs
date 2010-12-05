@@ -13,16 +13,16 @@ namespace DFWEditor_Alpha
     {
         private int miniHeight;
         private Size currentSize;
-        private String textureName;
         private List<Image> imgList;
         private int line;
         private bool bDelMe;
         private const int blank = 10;
         private const int imgSize = 32;
         private int blockX, blockY;
+        private int selectedIndex;
 
-        public bool bMinimize;
-        public int selectedIndex;
+        public bool bMinimize; 
+        public String textureName;
 
         public PopZone()
         {
@@ -31,6 +31,7 @@ namespace DFWEditor_Alpha
             Size = new Size(350, 300);
             miniHeight = 26;
             bDelMe = false;
+            selectedIndex = -1;
         }
 
         public PopZone(String _textureName, List<Image> _imgList)
@@ -54,6 +55,7 @@ namespace DFWEditor_Alpha
             Size = new Size(350, maxHeight);
 
             bDelMe = false;
+            selectedIndex = -1;
         }
 
         ~PopZone()
@@ -79,6 +81,19 @@ namespace DFWEditor_Alpha
         public bool checkDelete()
         {
             return bDelMe;
+        }
+
+        public List<Image> getImgList()
+        {
+            return imgList;
+        }
+
+        public int getCurrentIndex()
+        {
+            if (G.selectedTexture != this)
+                return -1;
+
+            return selectedIndex;
         }
 
         private void Bt_Min_Click(object sender, EventArgs e)
@@ -170,6 +185,7 @@ namespace DFWEditor_Alpha
                 return;
 
             G.selectedTile = imgList[j * 8 + i];
+            selectedIndex = j * 8 + i;
             G.bRepaintTextures = true;
 
             blockX = blank * i + imgSize * i;

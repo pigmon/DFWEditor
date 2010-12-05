@@ -15,6 +15,7 @@ namespace DFWEditor_Alpha
         public static PopZone selectedTexture;
         public static Image selectedTile;
         public static bool bRepaintTextures;
+        public static bool bRepaintMainPanel;
         public static Map currentMap;
     }
 }

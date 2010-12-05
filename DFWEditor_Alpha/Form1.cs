@@ -13,8 +13,7 @@ namespace DFWEditor_Alpha
     {
         private List<PopZone> textureList;
         private Timer timer = new Timer();
-        private bool bMainPanelMouseDown;
-        private Point ptPainting;
+        //sprivate bool bMainPanelMouseDown;
 
         public MainForm()
         {
@@ -25,8 +24,6 @@ namespace DFWEditor_Alpha
             timer.Tick += new EventHandler(TimerProcess);
             timer.Interval = 50;
             timer.Start();
-
-            ptPainting = new Point(-64, -64);
         }
 
         ~MainForm()
@@ -65,6 +62,12 @@ namespace DFWEditor_Alpha
                 splitContainer1.Panel1.Refresh();
                 G.bRepaintTextures = false;
             }
+
+            if (G.bRepaintMainPanel)
+            {
+                MainPanel.Invalidate();
+                G.bRepaintMainPanel = false;
+            }
         }
 
         // Check for save when closing or opening
@@ -95,7 +98,8 @@ namespace DFWEditor_Alpha
             }
 
             DlgNew newDlg = new DlgNew();
-            newDlg.Show();
+            newDlg.Show(this);
+            //newDlg.Location = new Point(this.Size.Width / 2 - 150, Location.Y + 200);
         }
 
         private void Menu_ShowGrid_Click(object sender, EventArgs e)
@@ -194,9 +198,20 @@ namespace DFWEditor_Alpha
 
             Graphics g = e.Graphics;
 
-            if (bMainPanelMouseDown && G.selectedTile != null)
+            for (int i = 0; i < G.currentMap.getSize().Width; i++)
             {
-                g.DrawImage(G.selectedTile, new Rectangle(ptPainting.X, ptPainting.Y, G.tileSize, G.tileSize));
+                for (int j = 0; j < G.currentMap.getSize().Height; j++)
+                {
+                    if (G.currentMap.tiles[i, j].texture == null)
+                        continue;
+                    PopZone texture = G.currentMap.tiles[i, j].texture;
+                    Image currentImg = null;
+                    if (texture == null)
+                        continue;
+                    currentImg = (texture.getImgList())[G.currentMap.tiles[i, j].index];
+                    if (currentImg != null)
+                        g.DrawImage(currentImg, i * G.tileSize, j * G.tileSize);
+                }
             }
 
             if (G.bGrid)
@@ -219,25 +234,30 @@ namespace DFWEditor_Alpha
 
         private void MainPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            bMainPanelMouseDown = true;
-            ptPainting.X = e.X - e.X % G.tileSize;
-            ptPainting.Y = e.Y - e.Y % G.tileSize;
+            //sbMainPanelMouseDown = true;
+            int i = (e.X - e.X % G.tileSize) / G.tileSize;
+            int j = (e.Y - e.Y % G.tileSize) / G.tileSize;
+
+            if (G.selectedTexture != null && 
+                i < G.currentMap.getSize().Width && j < G.currentMap.getSize().Height)
+            {
+                G.currentMap.tiles[i, j].texture = G.selectedTexture;
+                G.currentMap.tiles[i, j].index = G.selectedTexture.getCurrentIndex();
+            }
 
             MainPanel.Invalidate();
         }
 
         private void MainPanel_MouseLeave(object sender, EventArgs e)
         {
-            bMainPanelMouseDown = false;
-            ptPainting.X = ptPainting.Y = -64;
+            //bMainPanelMouseDown = false;
 
             MainPanel.Invalidate();
         }
 
         private void MainPanel_MouseUp(object sender, MouseEventArgs e)
         {
-            bMainPanelMouseDown = false;
-            ptPainting.X = ptPainting.Y = -64;
+            //sbMainPanelMouseDown = false;
 
             MainPanel.Invalidate();
         }
