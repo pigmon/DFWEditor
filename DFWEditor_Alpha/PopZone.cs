@@ -27,8 +27,8 @@ namespace DFWEditor_Alpha
         public PopZone()
         {
             InitializeComponent();
-            currentSize = new Size(350, 300);
-            Size = new Size(350, 300);
+            currentSize = new Size(G.PopZoneWidth, 300);
+            Size = new Size(G.PopZoneWidth, 300);
             miniHeight = 26;
             bDelMe = false;
             selectedIndex = -1;
@@ -44,15 +44,15 @@ namespace DFWEditor_Alpha
             imgList = _imgList;
 
             int count = imgList.Count();
-            line = count / 8;
+            line = count / G.TilesPerLineInTexture;
             if (line == 0)
                 line = 1;
-            if (count - line * 8 > 0)
+            if (count - line * G.TilesPerLineInTexture > 0)
                 line += 1;
 
             int maxHeight = miniHeight + line * (imgSize + blank) + blank;
-            currentSize = new Size(350, maxHeight);
-            Size = new Size(350, maxHeight);
+            currentSize = new Size(G.PopZoneWidth, maxHeight);
+            Size = new Size(G.PopZoneWidth, maxHeight);
 
             bDelMe = false;
             selectedIndex = -1;
@@ -110,6 +110,8 @@ namespace DFWEditor_Alpha
                 Bt_Min.BackgroundImage = Properties.Resources.min;
                 this.Size = new Size(currentSize.Width, currentSize.Height);
             }
+
+            G.bRepaintAll = true;
         }
 
         private DialogResult CheckDelete()
@@ -148,14 +150,25 @@ namespace DFWEditor_Alpha
         {
             Graphics g = e.Graphics;
 
-            int length = 8;
+            int count = imgList.Count();
+            line = count / G.TilesPerLineInTexture;
+            if (line == 0)
+                line = 1;
+            if (count - line * G.TilesPerLineInTexture > 0)
+                line += 1;
+
+            int maxHeight = miniHeight + line * (imgSize + blank) + blank;
+            Size = new Size(G.PopZoneWidth, maxHeight);
+            currentSize = new Size(G.PopZoneWidth, maxHeight);
+
+            int length = G.TilesPerLineInTexture;
             for (int i = 0; i < line; i++)
             {
-                if (i == line - 1 && imgList.Count() % 8 != 0)
-                    length = imgList.Count() % 8;
+                if (i == line - 1 && imgList.Count() % G.TilesPerLineInTexture != 0)
+                    length = imgList.Count() % G.TilesPerLineInTexture;
                 for (int j = 0; j < length; j++)
                 {
-                    g.DrawImage(imgList[i * 8 + j],
+                    g.DrawImage(imgList[i * G.TilesPerLineInTexture + j],
                         new Rectangle(blank * j + imgSize * j, blank + blank * i + imgSize * i, imgSize, imgSize));
                 }
             }
@@ -181,11 +194,11 @@ namespace DFWEditor_Alpha
             int i = e.X / (imgSize + blank);
             int j = (e.Y - blank) / (imgSize + blank);
 
-            if (i > 7 || j * 8 + i > imgList.Count() - 1)
+            if (i >= G.TilesPerLineInTexture || j * G.TilesPerLineInTexture + i > imgList.Count() - 1)
                 return;
 
-            G.selectedTile = imgList[j * 8 + i];
-            selectedIndex = j * 8 + i;
+            G.selectedTile = imgList[j * G.TilesPerLineInTexture + i];
+            selectedIndex = j * G.TilesPerLineInTexture + i;
             G.bRepaintTextures = true;
 
             blockX = blank * i + imgSize * i;

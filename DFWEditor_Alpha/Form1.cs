@@ -19,6 +19,8 @@ namespace DFWEditor_Alpha
         {
             InitializeComponent();
             textureList = new List<PopZone>();
+            G.TilesPerLineInTexture = (splitContainer1.Panel1.Size.Width - 200) / 42;
+            G.PopZoneWidth = G.TilesPerLineInTexture * 42 + 20;
 
             // Timer
             timer.Tick += new EventHandler(TimerProcess);
@@ -67,6 +69,12 @@ namespace DFWEditor_Alpha
             {
                 MainPanel.Invalidate();
                 G.bRepaintMainPanel = false;
+            }
+
+            if (G.bRepaintAll)
+            {
+                Refresh();
+                G.bRepaintAll = false;
             }
         }
 
@@ -232,18 +240,23 @@ namespace DFWEditor_Alpha
             }
         }
 
+        private void updateTile(int i, int j)
+        {
+            if (G.selectedTexture != null && G.currentMap != null && 
+                i < G.currentMap.getSize().Width && j < G.currentMap.getSize().Height)
+            {
+                G.currentMap.tiles[i, j].texture = G.selectedTexture;
+                G.currentMap.tiles[i, j].index = G.selectedTexture.getCurrentIndex();
+            }
+        }
+
         private void MainPanel_MouseDown(object sender, MouseEventArgs e)
         {
             //sbMainPanelMouseDown = true;
             int i = (e.X - e.X % G.tileSize) / G.tileSize;
             int j = (e.Y - e.Y % G.tileSize) / G.tileSize;
 
-            if (G.selectedTexture != null && 
-                i < G.currentMap.getSize().Width && j < G.currentMap.getSize().Height)
-            {
-                G.currentMap.tiles[i, j].texture = G.selectedTexture;
-                G.currentMap.tiles[i, j].index = G.selectedTexture.getCurrentIndex();
-            }
+            updateTile(i, j);
 
             MainPanel.Invalidate();
         }
@@ -260,6 +273,18 @@ namespace DFWEditor_Alpha
             //sbMainPanelMouseDown = false;
 
             MainPanel.Invalidate();
+        }
+
+        private void splitContainer1_Panel1_SizeChanged(object sender, EventArgs e)
+        {
+            G.TilesPerLineInTexture = splitContainer1.Panel1.Size.Width / 42 - 1;
+
+            if (G.TilesPerLineInTexture < 4)
+                G.TilesPerLineInTexture = 4;
+
+            G.PopZoneWidth = G.TilesPerLineInTexture * 42;
+
+            G.bRepaintAll = true;
         }
     }
 }
