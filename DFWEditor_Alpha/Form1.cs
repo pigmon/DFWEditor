@@ -181,6 +181,17 @@ namespace DFWEditor_Alpha
 
         private void MainPanel_Paint(object sender, PaintEventArgs e)
         {
+            if (G.currentMap == null)
+                return;
+
+            if (MainPanel.Size.Width != G.currentMap.getSize().Width * G.tileSize ||
+                MainPanel.Size.Height != G.currentMap.getSize().Height * G.tileSize)
+            {
+                MainPanel.Size =
+                    new Size(G.currentMap.getSize().Width * G.tileSize, G.currentMap.getSize().Height * G.tileSize);
+            }
+                
+
             Graphics g = e.Graphics;
 
             if (bMainPanelMouseDown && G.selectedTile != null)

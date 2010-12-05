@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.Lb_MapName = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Tb_MapName = new System.Windows.Forms.TextBox();
             this.Lb_MapWidth = new System.Windows.Forms.Label();
             this.Lb_MapHeight = new System.Windows.Forms.Label();
             this.Num_MapWidth = new System.Windows.Forms.NumericUpDown();
@@ -50,12 +50,12 @@
             this.Lb_MapName.TabIndex = 0;
             this.Lb_MapName.Text = "名字：";
             // 
-            // textBox1
+            // Tb_MapName
             // 
-            this.textBox1.Location = new System.Drawing.Point(153, 10);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(120, 21);
-            this.textBox1.TabIndex = 1;
+            this.Tb_MapName.Location = new System.Drawing.Point(153, 10);
+            this.Tb_MapName.Name = "Tb_MapName";
+            this.Tb_MapName.Size = new System.Drawing.Size(120, 21);
+            this.Tb_MapName.TabIndex = 1;
             // 
             // Lb_MapWidth
             // 
@@ -127,6 +127,7 @@
             this.Bt_OK.TabIndex = 6;
             this.Bt_OK.Text = "确定";
             this.Bt_OK.UseVisualStyleBackColor = true;
+            this.Bt_OK.Click += new System.EventHandler(this.Bt_OK_Click);
             // 
             // Bt_Clear
             // 
@@ -136,6 +137,7 @@
             this.Bt_Clear.TabIndex = 7;
             this.Bt_Clear.Text = "重置";
             this.Bt_Clear.UseVisualStyleBackColor = true;
+            this.Bt_Clear.Click += new System.EventHandler(this.Bt_Clear_Click);
             // 
             // Bt_Cancel
             // 
@@ -159,7 +161,7 @@
             this.Controls.Add(this.Num_MapWidth);
             this.Controls.Add(this.Lb_MapHeight);
             this.Controls.Add(this.Lb_MapWidth);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Tb_MapName);
             this.Controls.Add(this.Lb_MapName);
             this.Name = "DlgNew";
             this.Text = "新建地图";
@@ -173,7 +175,7 @@
         #endregion
 
         private System.Windows.Forms.Label Lb_MapName;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox Tb_MapName;
         private System.Windows.Forms.Label Lb_MapWidth;
         private System.Windows.Forms.Label Lb_MapHeight;
         private System.Windows.Forms.NumericUpDown Num_MapWidth;
