@@ -89,8 +89,9 @@
             // 
             this.Menu_New.Name = "Menu_New";
             this.Menu_New.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.Menu_New.Size = new System.Drawing.Size(147, 22);
+            this.Menu_New.Size = new System.Drawing.Size(152, 22);
             this.Menu_New.Text = "新建";
+            this.Menu_New.Click += new System.EventHandler(this.Menu_New_Click);
             // 
             // Menu_Open
             // 
@@ -98,7 +99,7 @@
             this.Menu_OpenLevel,
             this.Menu_OpenTexture});
             this.Menu_Open.Name = "Menu_Open";
-            this.Menu_Open.Size = new System.Drawing.Size(147, 22);
+            this.Menu_Open.Size = new System.Drawing.Size(152, 22);
             this.Menu_Open.Text = "打开";
             // 
             // Menu_OpenLevel
@@ -118,19 +119,19 @@
             // 
             this.Menu_Save.Name = "Menu_Save";
             this.Menu_Save.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.Menu_Save.Size = new System.Drawing.Size(147, 22);
+            this.Menu_Save.Size = new System.Drawing.Size(152, 22);
             this.Menu_Save.Text = "保存";
             // 
             // Menu_SaveAs
             // 
             this.Menu_SaveAs.Name = "Menu_SaveAs";
-            this.Menu_SaveAs.Size = new System.Drawing.Size(147, 22);
+            this.Menu_SaveAs.Size = new System.Drawing.Size(152, 22);
             this.Menu_SaveAs.Text = "另存为";
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             // 
             // 编辑ToolStripMenuItem
@@ -199,6 +200,7 @@
             this.TB_New.Size = new System.Drawing.Size(32, 32);
             this.TB_New.Text = "toolStripButton1";
             this.TB_New.ToolTipText = "新建";
+            this.TB_New.Click += new System.EventHandler(this.TB_New_Click);
             // 
             // TB_Open
             // 

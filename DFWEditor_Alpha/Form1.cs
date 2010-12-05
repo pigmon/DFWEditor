@@ -67,6 +67,37 @@ namespace DFWEditor_Alpha
             }
         }
 
+        // Check for save when closing or opening
+        private DialogResult CheckForSave(String reason)
+        {
+            return MessageBox.Show("要保存改动么？", reason, MessageBoxButtons.YesNoCancel);
+        }
+
+        private void NewMap()
+        {
+            if (G.currentMap != null)
+            {
+                DialogResult result = CheckForSave("新建地图");
+
+                if (result == DialogResult.Cancel)
+                    return;
+                else if (result == DialogResult.Yes)
+                {
+                    G.currentMap.Save();
+                    G.currentMap.Clean();
+                    G.currentMap = null;
+                }
+                else
+                {
+                    G.currentMap.Clean();
+                    G.currentMap = null;
+                }
+            }
+
+            DlgNew newDlg = new DlgNew();
+            newDlg.Show();
+        }
+
         private void Menu_ShowGrid_Click(object sender, EventArgs e)
         {
             TB_Grid.Checked = G.bGrid = Menu_ShowGrid.Checked;
@@ -87,6 +118,16 @@ namespace DFWEditor_Alpha
         private void TB_AreaBrush_CheckedChanged(object sender, EventArgs e)
         {
             Menu_AreaBrush.Checked = G.bAreaBrush = TB_AreaBrush.Checked;
+        }
+
+        private void TB_New_Click(object sender, EventArgs e)
+        {
+            NewMap();
+        }
+
+        private void Menu_New_Click(object sender, EventArgs e)
+        {
+            NewMap();
         }
 
         private void LeftPanel_Paint(object sender, PaintEventArgs e)

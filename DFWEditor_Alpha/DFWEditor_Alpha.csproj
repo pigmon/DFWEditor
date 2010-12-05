@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DlgNew.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgNew.Designer.cs">
+      <DependentUpon>DlgNew.cs</DependentUpon>
+    </Compile>
     <Compile Include="DoubleBufferedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -62,6 +68,7 @@
     </Compile>
     <Compile Include="G.cs" />
     <Compile Include="ImageManager.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="PopZone.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -70,6 +77,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DlgNew.resx">
+      <DependentUpon>DlgNew.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Close.bmp" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Resources\basic_texture.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
