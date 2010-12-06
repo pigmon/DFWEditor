@@ -52,8 +52,8 @@
             this.TB_Grid = new System.Windows.Forms.ToolStripButton();
             this.TB_AreaBrush = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.Dlg_OpenTexture = new System.Windows.Forms.OpenFileDialog();
             this.MainPanel = new DFWEditor_Alpha.DoubleBufferedPanel();
+            this.Dlg_OpenTexture = new System.Windows.Forms.OpenFileDialog();
             this.MainMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -295,11 +295,6 @@
             this.splitContainer1.SplitterDistance = 346;
             this.splitContainer1.TabIndex = 2;
             // 
-            // Dlg_OpenTexture
-            // 
-            this.Dlg_OpenTexture.Filter = "图像文件(*.bmp,*.png,*.gif) |*.bmp;*.png;*.gif";
-            this.Dlg_OpenTexture.FileOk += new System.ComponentModel.CancelEventHandler(this.Dlg_OpenTexture_FileOk);
-            // 
             // MainPanel
             // 
             this.MainPanel.AutoScroll = true;
@@ -310,8 +305,14 @@
             this.MainPanel.TabIndex = 0;
             this.MainPanel.MouseLeave += new System.EventHandler(this.MainPanel_MouseLeave);
             this.MainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MainPanel_Paint);
+            this.MainPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseMove);
             this.MainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseDown);
             this.MainPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseUp);
+            // 
+            // Dlg_OpenTexture
+            // 
+            this.Dlg_OpenTexture.Filter = "图像文件(*.bmp,*.png,*.gif) |*.bmp;*.png;*.gif";
+            this.Dlg_OpenTexture.FileOk += new System.ComponentModel.CancelEventHandler(this.Dlg_OpenTexture_FileOk);
             // 
             // MainForm
             // 

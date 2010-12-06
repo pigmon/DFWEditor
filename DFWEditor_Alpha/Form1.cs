@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -13,7 +14,10 @@ namespace DFWEditor_Alpha
     {
         private List<PopZone> textureList;
         private Timer timer = new Timer();
-        //sprivate bool bMainPanelMouseDown;
+        // Area brush
+        private bool bMouseDownMainPanel;
+        private int AreaStartI, AreaStartJ;
+        private int AreaEndI, AreaEndJ;
 
         public MainForm()
         {
@@ -21,6 +25,8 @@ namespace DFWEditor_Alpha
             textureList = new List<PopZone>();
             G.TilesPerLineInTexture = (splitContainer1.Panel1.Size.Width - 200) / 42;
             G.PopZoneWidth = G.TilesPerLineInTexture * 42 + 20;
+            bMouseDownMainPanel = false;
+            AreaStartI = AreaStartJ = AreaEndI = AreaEndJ = -1;
 
             // Timer
             timer.Tick += new EventHandler(TimerProcess);
@@ -238,25 +244,75 @@ namespace DFWEditor_Alpha
                     g.DrawLine(gridPen, i * G.tileSize, 0, i * G.tileSize, MainPanel.Size.Height);
                 }
             }
+
+            if (G.bAreaBrush && bMouseDownMainPanel)
+            {
+                Pen AreaPen = new Pen(Color.Gray, 4);
+                AreaPen.DashStyle = DashStyle.Dot;
+                int startX = (AreaStartI <= AreaEndI) ? AreaStartI : AreaEndI;
+                int startY = (AreaStartJ <= AreaEndJ) ? AreaStartJ : AreaEndJ;
+                int AreaWidth = Math.Abs(AreaStartI - AreaEndI) + 1;
+                int AreaHeight = Math.Abs(AreaStartJ - AreaEndJ) + 1;
+                g.DrawRectangle(AreaPen,
+                    new Rectangle(startX * G.tileSize, startY * G.tileSize, AreaWidth * G.tileSize, AreaHeight * G.tileSize));
+            }
         }
 
         private void updateTile(int i, int j)
         {
-            if (G.selectedTexture != null && G.currentMap != null && 
-                i < G.currentMap.getSize().Width && j < G.currentMap.getSize().Height)
+            G.currentMap.tiles[i, j].texture = G.selectedTexture;
+            G.currentMap.tiles[i, j].index = G.selectedTexture.getCurrentIndex();
+        }
+
+        private void updateArea(int iStart, int jStart, int iEnd, int Jend)
+        {
+            for (int i = iStart; i <= iEnd; i++)
             {
-                G.currentMap.tiles[i, j].texture = G.selectedTexture;
-                G.currentMap.tiles[i, j].index = G.selectedTexture.getCurrentIndex();
+                for (int j = jStart; j <= Jend; j++)
+                {
+                    G.currentMap.tiles[i, j].texture = G.selectedTexture;
+                    G.currentMap.tiles[i, j].index = G.selectedTexture.getCurrentIndex();
+                }
             }
+        }
+
+        private Point getMapMouseLoc(int x, int y)
+        {
+            Point pt = new Point();
+
+            pt.X = x / G.tileSize * G.tileSize;
+            if (pt.X < 0)
+                pt.X = 0;
+            if (G.currentMap != null && pt.X > G.currentMap.getSize().Width * G.tileSize - G.tileSize)
+                pt.X = G.currentMap.getSize().Width * G.tileSize - G.tileSize;
+
+            pt.Y = y / G.tileSize * G.tileSize;
+            if (pt.Y < 0)
+                pt.Y = 0;
+            if (G.currentMap != null && pt.Y > G.currentMap.getSize().Height * G.tileSize - G.tileSize)
+                pt.Y = G.currentMap.getSize().Height * G.tileSize - G.tileSize;
+
+            return pt;
         }
 
         private void MainPanel_MouseDown(object sender, MouseEventArgs e)
         {
-            //sbMainPanelMouseDown = true;
-            int i = (e.X - e.X % G.tileSize) / G.tileSize;
-            int j = (e.Y - e.Y % G.tileSize) / G.tileSize;
+            bMouseDownMainPanel = true;
 
-            updateTile(i, j);
+            if (G.selectedTexture == null || G.currentMap == null)
+                return;
+
+            Point pt = getMapMouseLoc(e.X, e.Y);
+
+            if (G.bAreaBrush)
+            {
+                AreaStartI = AreaEndI = pt.X / G.tileSize;
+                AreaStartJ = AreaEndJ = pt.Y / G.tileSize;
+            }
+            else
+            {
+                updateTile(pt.X / G.tileSize, pt.Y / G.tileSize);
+            }
 
             MainPanel.Invalidate();
         }
@@ -270,7 +326,52 @@ namespace DFWEditor_Alpha
 
         private void MainPanel_MouseUp(object sender, MouseEventArgs e)
         {
-            //sbMainPanelMouseDown = false;
+            if (G.selectedTexture == null || G.currentMap == null)
+                return;
+
+            Point pt = getMapMouseLoc(e.X, e.Y);
+            int i = pt.X / G.tileSize;
+            int j = pt.Y / G.tileSize;
+
+            if (G.bAreaBrush)
+            {
+                AreaEndI = i;
+                AreaEndJ = j;
+
+                if (AreaEndI >= G.currentMap.getSize().Width)
+                    AreaEndI = G.currentMap.getSize().Width - 1;
+                if (AreaEndI < 0)
+                    AreaEndI = 0;
+                if (AreaEndJ >= G.currentMap.getSize().Height)
+                    AreaEndJ = G.currentMap.getSize().Height - 1;
+                if (AreaEndJ < 0)
+                    AreaEndJ = 0;
+
+                int starti = Math.Min(AreaStartI, AreaEndI);
+                int startj = Math.Min(AreaStartJ, AreaEndJ);
+                int endi = Math.Max(AreaStartI, AreaEndI);
+                int endj = Math.Max(AreaStartJ, AreaEndJ);
+
+                updateArea(starti, startj, endi, endj);
+
+                AreaStartI = AreaStartJ = AreaEndI = AreaEndJ = -1;
+            }
+
+
+            bMouseDownMainPanel = false;
+            MainPanel.Invalidate();
+        }
+
+        private void MainPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            int i = (e.X - e.X % G.tileSize) / G.tileSize;
+            int j = (e.Y - e.Y % G.tileSize) / G.tileSize;
+
+            if (G.bAreaBrush && bMouseDownMainPanel)
+            {
+                AreaEndI = i;
+                AreaEndJ = j;
+            }
 
             MainPanel.Invalidate();
         }
