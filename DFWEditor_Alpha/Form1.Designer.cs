@@ -32,8 +32,6 @@
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_New = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Open = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_OpenLevel = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_OpenTexture = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Save = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_SaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,6 +39,7 @@
             this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_ShowGrid = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_AreaBrush = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_DefaultPath = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.TB_New = new System.Windows.Forms.ToolStripButton();
@@ -52,8 +51,9 @@
             this.TB_Grid = new System.Windows.Forms.ToolStripButton();
             this.TB_AreaBrush = new System.Windows.Forms.ToolStripButton();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.Dlg_OpenMap = new System.Windows.Forms.OpenFileDialog();
+            this.Dlg_DefaultPath = new System.Windows.Forms.FolderBrowserDialog();
             this.MainPanel = new DFWEditor_Alpha.DoubleBufferedPanel();
-            this.Dlg_OpenTexture = new System.Windows.Forms.OpenFileDialog();
             this.MainMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -89,49 +89,36 @@
             // 
             this.Menu_New.Name = "Menu_New";
             this.Menu_New.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.Menu_New.Size = new System.Drawing.Size(147, 22);
+            this.Menu_New.Size = new System.Drawing.Size(152, 22);
             this.Menu_New.Text = "新建";
             this.Menu_New.Click += new System.EventHandler(this.Menu_New_Click);
             // 
             // Menu_Open
             // 
-            this.Menu_Open.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Menu_OpenLevel,
-            this.Menu_OpenTexture});
             this.Menu_Open.Name = "Menu_Open";
-            this.Menu_Open.Size = new System.Drawing.Size(147, 22);
+            this.Menu_Open.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.Menu_Open.Size = new System.Drawing.Size(152, 22);
             this.Menu_Open.Text = "打开";
-            // 
-            // Menu_OpenLevel
-            // 
-            this.Menu_OpenLevel.Name = "Menu_OpenLevel";
-            this.Menu_OpenLevel.Size = new System.Drawing.Size(124, 22);
-            this.Menu_OpenLevel.Text = "关卡文件";
-            // 
-            // Menu_OpenTexture
-            // 
-            this.Menu_OpenTexture.Name = "Menu_OpenTexture";
-            this.Menu_OpenTexture.Size = new System.Drawing.Size(124, 22);
-            this.Menu_OpenTexture.Text = "贴图";
-            this.Menu_OpenTexture.Click += new System.EventHandler(this.Menu_OpenTexture_Click);
+            this.Menu_Open.Click += new System.EventHandler(this.Menu_Open_Click);
             // 
             // Menu_Save
             // 
             this.Menu_Save.Name = "Menu_Save";
             this.Menu_Save.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.Menu_Save.Size = new System.Drawing.Size(147, 22);
+            this.Menu_Save.Size = new System.Drawing.Size(152, 22);
             this.Menu_Save.Text = "保存";
+            this.Menu_Save.Click += new System.EventHandler(this.Menu_Save_Click);
             // 
             // Menu_SaveAs
             // 
             this.Menu_SaveAs.Name = "Menu_SaveAs";
-            this.Menu_SaveAs.Size = new System.Drawing.Size(147, 22);
+            this.Menu_SaveAs.Size = new System.Drawing.Size(152, 22);
             this.Menu_SaveAs.Text = "另存为";
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             // 
             // 编辑ToolStripMenuItem
@@ -144,7 +131,8 @@
             // 
             this.工具ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_ShowGrid,
-            this.Menu_AreaBrush});
+            this.Menu_AreaBrush,
+            this.Menu_DefaultPath});
             this.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem";
             this.工具ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.工具ToolStripMenuItem.Text = "工具";
@@ -166,6 +154,13 @@
             this.Menu_AreaBrush.Size = new System.Drawing.Size(176, 22);
             this.Menu_AreaBrush.Text = "区域地形刷";
             this.Menu_AreaBrush.Click += new System.EventHandler(this.Menu_AreaBrush_Click);
+            // 
+            // Menu_DefaultPath
+            // 
+            this.Menu_DefaultPath.Name = "Menu_DefaultPath";
+            this.Menu_DefaultPath.Size = new System.Drawing.Size(176, 22);
+            this.Menu_DefaultPath.Text = "设置默认存储路径";
+            this.Menu_DefaultPath.Click += new System.EventHandler(this.Menu_DefaultPath_Click);
             // 
             // 帮助ToolStripMenuItem
             // 
@@ -224,6 +219,7 @@
             this.TB_Save.Size = new System.Drawing.Size(32, 32);
             this.TB_Save.Text = "toolStripButton1";
             this.TB_Save.ToolTipText = "保存";
+            this.TB_Save.Click += new System.EventHandler(this.TB_Save_Click);
             // 
             // toolStripSeparator1
             // 
@@ -295,6 +291,15 @@
             this.splitContainer1.SplitterDistance = 346;
             this.splitContainer1.TabIndex = 2;
             // 
+            // Dlg_OpenMap
+            // 
+            this.Dlg_OpenMap.Filter = "关卡文件 *.map|*.map";
+            this.Dlg_OpenMap.FileOk += new System.ComponentModel.CancelEventHandler(this.Dlg_OpenMap_FileOk);
+            // 
+            // Dlg_DefaultPath
+            // 
+            this.Dlg_DefaultPath.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
             // MainPanel
             // 
             this.MainPanel.AutoScroll = true;
@@ -308,11 +313,6 @@
             this.MainPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseMove);
             this.MainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseDown);
             this.MainPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseUp);
-            // 
-            // Dlg_OpenTexture
-            // 
-            this.Dlg_OpenTexture.Filter = "图像文件(*.bmp,*.png,*.gif) |*.bmp;*.png;*.gif";
-            this.Dlg_OpenTexture.FileOk += new System.ComponentModel.CancelEventHandler(this.Dlg_OpenTexture_FileOk);
             // 
             // MainForm
             // 
@@ -365,10 +365,10 @@
         private System.Windows.Forms.ToolStripButton TB_Grid;
         private System.Windows.Forms.ToolStripButton TB_AreaBrush;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ToolStripMenuItem Menu_OpenLevel;
-        private System.Windows.Forms.ToolStripMenuItem Menu_OpenTexture;
-        private System.Windows.Forms.OpenFileDialog Dlg_OpenTexture;
         private DoubleBufferedPanel MainPanel;
+        private System.Windows.Forms.OpenFileDialog Dlg_OpenMap;
+        private System.Windows.Forms.FolderBrowserDialog Dlg_DefaultPath;
+        private System.Windows.Forms.ToolStripMenuItem Menu_DefaultPath;
     }
 }
 

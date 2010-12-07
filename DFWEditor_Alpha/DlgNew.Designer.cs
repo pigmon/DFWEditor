@@ -37,6 +37,10 @@
             this.Bt_OK = new System.Windows.Forms.Button();
             this.Bt_Clear = new System.Windows.Forms.Button();
             this.Bt_Cancel = new System.Windows.Forms.Button();
+            this.Dlg_OpenTexture = new System.Windows.Forms.OpenFileDialog();
+            this.Lb_Texture = new System.Windows.Forms.Label();
+            this.Bt_OpenTexture = new System.Windows.Forms.Button();
+            this.Lb_TextureName = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Num_MapWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Num_MapHeight)).BeginInit();
             this.SuspendLayout();
@@ -149,11 +153,47 @@
             this.Bt_Cancel.UseVisualStyleBackColor = true;
             this.Bt_Cancel.Click += new System.EventHandler(this.Bt_Cancel_Click);
             // 
+            // Dlg_OpenTexture
+            // 
+            this.Dlg_OpenTexture.Filter = "图像文件(*.bmp,*.png,*.gif) |*.bmp;*.png;*.gif";
+            this.Dlg_OpenTexture.FileOk += new System.ComponentModel.CancelEventHandler(this.Dlg_OpenTexture_FileOk);
+            // 
+            // Lb_Texture
+            // 
+            this.Lb_Texture.AutoSize = true;
+            this.Lb_Texture.Location = new System.Drawing.Point(14, 122);
+            this.Lb_Texture.Name = "Lb_Texture";
+            this.Lb_Texture.Size = new System.Drawing.Size(41, 12);
+            this.Lb_Texture.TabIndex = 9;
+            this.Lb_Texture.Text = "贴图：";
+            // 
+            // Bt_OpenTexture
+            // 
+            this.Bt_OpenTexture.Location = new System.Drawing.Point(153, 117);
+            this.Bt_OpenTexture.Name = "Bt_OpenTexture";
+            this.Bt_OpenTexture.Size = new System.Drawing.Size(35, 23);
+            this.Bt_OpenTexture.TabIndex = 10;
+            this.Bt_OpenTexture.Text = "...";
+            this.Bt_OpenTexture.UseVisualStyleBackColor = true;
+            this.Bt_OpenTexture.Click += new System.EventHandler(this.Bt_OpenTexture_Click);
+            // 
+            // Lb_TextureName
+            // 
+            this.Lb_TextureName.AutoSize = true;
+            this.Lb_TextureName.Location = new System.Drawing.Point(15, 157);
+            this.Lb_TextureName.Name = "Lb_TextureName";
+            this.Lb_TextureName.Size = new System.Drawing.Size(29, 12);
+            this.Lb_TextureName.TabIndex = 11;
+            this.Lb_TextureName.Text = "null";
+            // 
             // DlgNew
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.Lb_TextureName);
+            this.Controls.Add(this.Bt_OpenTexture);
+            this.Controls.Add(this.Lb_Texture);
             this.Controls.Add(this.Bt_Cancel);
             this.Controls.Add(this.Bt_Clear);
             this.Controls.Add(this.Bt_OK);
@@ -183,5 +223,9 @@
         private System.Windows.Forms.Button Bt_OK;
         private System.Windows.Forms.Button Bt_Clear;
         private System.Windows.Forms.Button Bt_Cancel;
+        private System.Windows.Forms.OpenFileDialog Dlg_OpenTexture;
+        private System.Windows.Forms.Label Lb_Texture;
+        private System.Windows.Forms.Button Bt_OpenTexture;
+        private System.Windows.Forms.Label Lb_TextureName;
     }
 }

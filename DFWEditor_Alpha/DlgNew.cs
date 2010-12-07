@@ -11,9 +11,12 @@ namespace DFWEditor_Alpha
 {
     public partial class DlgNew : Form
     {
+        private String textureName;
+
         public DlgNew()
         {
             InitializeComponent();
+            textureName = "null";
         }
 
         private void Bt_Cancel_Click(object sender, EventArgs e)
@@ -26,6 +29,8 @@ namespace DFWEditor_Alpha
             Tb_MapName.Text = "";
             Num_MapWidth.Value = Num_MapWidth.Minimum;
             Num_MapHeight.Value = Num_MapHeight.Minimum;
+            textureName = "null";
+            Lb_TextureName.Text = "null";
         }
 
         private void Bt_OK_Click(object sender, EventArgs e)
@@ -36,11 +41,28 @@ namespace DFWEditor_Alpha
                 return;
             }
 
-            G.currentMap = new Map(Tb_MapName.Text, Decimal.ToInt32(Num_MapWidth.Value), Decimal.ToInt32(Num_MapHeight.Value));
+            if (textureName == "null")
+            {
+                MessageBox.Show("请选择贴图。");
+                return;
+            }
+
+            G.currentMap = new Map(Tb_MapName.Text, Decimal.ToInt32(Num_MapWidth.Value), Decimal.ToInt32(Num_MapHeight.Value), textureName);
 
             G.bRepaintMainPanel = true;
-
+            DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void Bt_OpenTexture_Click(object sender, EventArgs e)
+        {
+            Dlg_OpenTexture.ShowDialog(this);
+        }
+
+        private void Dlg_OpenTexture_FileOk(object sender, CancelEventArgs e)
+        {
+            textureName = Dlg_OpenTexture.FileName;
+            Lb_TextureName.Text = textureName;
         }
     }
 }

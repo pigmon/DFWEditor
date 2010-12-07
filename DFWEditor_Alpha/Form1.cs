@@ -12,7 +12,6 @@ namespace DFWEditor_Alpha
 {
     public partial class MainForm : Form
     {
-        private List<PopZone> textureList;
         private Timer timer = new Timer();
         // Area brush
         private bool bMouseDownMainPanel;
@@ -22,11 +21,11 @@ namespace DFWEditor_Alpha
         public MainForm()
         {
             InitializeComponent();
-            textureList = new List<PopZone>();
             G.TilesPerLineInTexture = (splitContainer1.Panel1.Size.Width - 200) / 42;
             G.PopZoneWidth = G.TilesPerLineInTexture * 42 + 20;
             bMouseDownMainPanel = false;
             AreaStartI = AreaStartJ = AreaEndI = AreaEndJ = -1;
+            Dlg_OpenMap.InitialDirectory = G.SavePath;
 
             // Timer
             timer.Tick += new EventHandler(TimerProcess);
@@ -36,16 +35,6 @@ namespace DFWEditor_Alpha
 
         ~MainForm()
         {
-            if (textureList != null)
-            {
-                for (int i = 0; i < textureList.Count(); i++)
-                {
-                    textureList[i].Dispose();
-                    textureList[i] = null;
-                }
-                textureList = null;
-            }
-
             timer.Stop();
             timer.Dispose();
             timer = null;
@@ -53,17 +42,6 @@ namespace DFWEditor_Alpha
 
         private void TimerProcess(Object myObject, EventArgs myEventArgs)
         {
-            for (int i = 0; i < textureList.Count(); i++)
-            {
-                if (textureList[i].checkDelete())
-                {
-                    this.splitContainer1.Panel1.Controls.Remove(textureList[i]);
-                    textureList[i].Dispose();
-                    textureList[i] = null;
-                    textureList.RemoveAt(i);
-                    Refresh();
-                }
-            }
 
             if (G.bRepaintTextures)
             {
@@ -112,8 +90,57 @@ namespace DFWEditor_Alpha
             }
 
             DlgNew newDlg = new DlgNew();
-            newDlg.Show(this);
-            //newDlg.Location = new Point(this.Size.Width / 2 - 150, Location.Y + 200);
+            if (newDlg.ShowDialog() == DialogResult.OK)
+            {
+                G.currentTexture = new TexturePanel(G.currentMap.textureName, G.currentMap.imgList);
+                this.splitContainer1.Panel1.Controls.Add(G.currentTexture);
+            }
+        }
+
+        private void TB_Open_Click(object sender, EventArgs e)
+        {
+            if (G.currentMap != null)
+            {
+                DialogResult result = CheckForSave("打开地图");
+
+                if (result == DialogResult.Cancel)
+                    return;
+                else if (result == DialogResult.Yes)
+                {
+                    G.currentMap.Save();
+                    G.currentMap.Clean();
+                    G.currentMap = null;
+                }
+                else
+                {
+                    G.currentMap.Clean();
+                    G.currentMap = null;
+                }
+            }
+            Dlg_OpenMap.ShowDialog(this);
+        }
+
+        private void Menu_Open_Click(object sender, EventArgs e)
+        {
+            if (G.currentMap != null)
+            {
+                DialogResult result = CheckForSave("打开地图");
+
+                if (result == DialogResult.Cancel)
+                    return;
+                else if (result == DialogResult.Yes)
+                {
+                    G.currentMap.Save();
+                    G.currentMap.Clean();
+                    G.currentMap = null;
+                }
+                else
+                {
+                    G.currentMap.Clean();
+                    G.currentMap = null;
+                }
+            }
+            Dlg_OpenMap.ShowDialog(this);
         }
 
         private void Menu_ShowGrid_Click(object sender, EventArgs e)
@@ -148,53 +175,45 @@ namespace DFWEditor_Alpha
             NewMap();
         }
 
+        private void TB_Save_Click(object sender, EventArgs e)
+        {
+            if (G.currentMap == null)
+                return;
+
+            G.currentMap.Save();
+        }
+
+        private void Menu_Save_Click(object sender, EventArgs e)
+        {
+            if (G.currentMap == null)
+                return;
+
+            G.currentMap.Save();
+        }
+
+        private void Menu_DefaultPath_Click(object sender, EventArgs e)
+        {
+            if (Dlg_DefaultPath.ShowDialog() == DialogResult.OK)
+                G.SavePath = Dlg_DefaultPath.SelectedPath;
+        }
+
         private void LeftPanel_Paint(object sender, PaintEventArgs e)
         {
             
         }
 
-        private void Menu_OpenTexture_Click(object sender, EventArgs e)
+        private void Dlg_OpenMap_FileOk(object sender, CancelEventArgs e)
         {
-            Dlg_OpenTexture.ShowDialog(this);
-        }
-
-        private void TB_Open_Click(object sender, EventArgs e)
-        {
-            Dlg_OpenTexture.ShowDialog(this);
-        }
-
-        private void Dlg_OpenTexture_FileOk(object sender, CancelEventArgs e)
-        {
-            String fileName = Dlg_OpenTexture.FileName;
-            Image texture = Image.FromFile(fileName);
-            List<Image> cutList;
-            cutList = new List<Image>();
-            ImageManager.Cut(texture, G.tileSize, G.tileSize, "png", cutList);
-
-            String[] split = { "\\" };
-            String[] path = fileName.Split(split, StringSplitOptions.RemoveEmptyEntries);
-            String texName = path[path.Count() - 1];
-
-            PopZone popZone = new PopZone(texName, cutList);
-            textureList.Add(popZone);
-            this.splitContainer1.Panel1.Controls.Add(popZone);
-
-            texture.Dispose();
-            texture = null;
+            String fileName = Dlg_OpenMap.FileName;
+            G.currentMap = new Map();
+            G.currentMap.Load(fileName);
+            G.currentTexture = new TexturePanel(G.currentMap.textureName, G.currentMap.imgList);
+            this.splitContainer1.Panel1.Controls.Add(G.currentTexture);
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
             //splitContainer1.Panel1.Refresh();
-
-            if (textureList.Count() > 0)
-            {
-                textureList[0].Location = new Point(splitContainer1.Panel1.Left + 32, splitContainer1.Panel1.Top + 32);
-            }
-            for (int i = 1; i < textureList.Count(); i++)
-            {
-                textureList[i].Location = new Point(splitContainer1.Panel1.Left + 32, textureList[i - 1].Location.Y + textureList[i - 1].getHeight() + 32);
-            }
         }
 
         private void MainPanel_Paint(object sender, PaintEventArgs e)
@@ -212,22 +231,20 @@ namespace DFWEditor_Alpha
 
             Graphics g = e.Graphics;
 
-            for (int i = 0; i < G.currentMap.getSize().Width; i++)
-            {
-                for (int j = 0; j < G.currentMap.getSize().Height; j++)
-                {
-                    if (G.currentMap.tiles[i, j].texture == null)
-                        continue;
-                    PopZone texture = G.currentMap.tiles[i, j].texture;
-                    Image currentImg = null;
-                    if (texture == null)
-                        continue;
-                    currentImg = (texture.getImgList())[G.currentMap.tiles[i, j].index];
-                    if (currentImg != null)
-                        g.DrawImage(currentImg, i * G.tileSize, j * G.tileSize);
-                }
-            }
-
+            
+           for (int i = 0; i < G.currentMap.getSize().Width; i++)
+           {
+               for (int j = 0; j < G.currentMap.getSize().Height; j++)
+               {
+                   if (G.currentMap.tiles[i, j] < 0)
+                       continue;
+                   Image currentImg = null;
+                   currentImg = (G.currentMap.imgList)[G.currentMap.tiles[i, j]];
+                   if (currentImg != null)
+                       g.DrawImage(currentImg, i * G.tileSize, j * G.tileSize);
+               }
+           }
+            
             if (G.bGrid)
             {
                 Pen gridPen = new Pen(Color.Black, 1);
@@ -260,8 +277,8 @@ namespace DFWEditor_Alpha
 
         private void updateTile(int i, int j)
         {
-            G.currentMap.tiles[i, j].texture = G.selectedTexture;
-            G.currentMap.tiles[i, j].index = G.selectedTexture.getCurrentIndex();
+            if (G.currentTexture.getCurrentIndex() >= 0)
+                G.currentMap.tiles[i, j] = G.currentTexture.getCurrentIndex();
         }
 
         private void updateArea(int iStart, int jStart, int iEnd, int Jend)
@@ -270,8 +287,7 @@ namespace DFWEditor_Alpha
             {
                 for (int j = jStart; j <= Jend; j++)
                 {
-                    G.currentMap.tiles[i, j].texture = G.selectedTexture;
-                    G.currentMap.tiles[i, j].index = G.selectedTexture.getCurrentIndex();
+                    G.currentMap.tiles[i, j] = G.currentTexture.getCurrentIndex();
                 }
             }
         }
@@ -299,7 +315,7 @@ namespace DFWEditor_Alpha
         {
             bMouseDownMainPanel = true;
 
-            if (G.selectedTexture == null || G.currentMap == null)
+            if (G.currentTexture == null || G.currentMap == null)
                 return;
 
             Point pt = getMapMouseLoc(e.X, e.Y);
@@ -326,7 +342,7 @@ namespace DFWEditor_Alpha
 
         private void MainPanel_MouseUp(object sender, MouseEventArgs e)
         {
-            if (G.selectedTexture == null || G.currentMap == null)
+            if (G.currentTexture == null || G.currentMap == null)
                 return;
 
             Point pt = getMapMouseLoc(e.X, e.Y);
@@ -387,5 +403,6 @@ namespace DFWEditor_Alpha
 
             G.bRepaintAll = true;
         }
+
     }
 }
