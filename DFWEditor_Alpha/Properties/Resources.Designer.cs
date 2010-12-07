@@ -88,6 +88,13 @@ namespace DFWEditor_Alpha.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap GridControl {
+            get {
+                object obj = ResourceManager.GetObject("GridControl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap max {
             get {
                 object obj = ResourceManager.GetObject("max", resourceCulture);
@@ -98,6 +105,13 @@ namespace DFWEditor_Alpha.Properties {
         internal static System.Drawing.Bitmap min {
             get {
                 object obj = ResourceManager.GetObject("min", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap NavPoint {
+            get {
+                object obj = ResourceManager.GetObject("NavPoint", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

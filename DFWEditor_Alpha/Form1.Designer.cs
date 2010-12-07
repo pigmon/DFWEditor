@@ -42,18 +42,20 @@
             this.Menu_DefaultPath = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.TB_New = new System.Windows.Forms.ToolStripButton();
-            this.TB_Open = new System.Windows.Forms.ToolStripButton();
-            this.TB_Save = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.TB_Del = new System.Windows.Forms.ToolStripButton();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSeparator();
-            this.TB_Grid = new System.Windows.Forms.ToolStripButton();
-            this.TB_AreaBrush = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Dlg_OpenMap = new System.Windows.Forms.OpenFileDialog();
             this.Dlg_DefaultPath = new System.Windows.Forms.FolderBrowserDialog();
             this.MainPanel = new DFWEditor_Alpha.DoubleBufferedPanel();
+            this.TB_New = new System.Windows.Forms.ToolStripButton();
+            this.TB_Open = new System.Windows.Forms.ToolStripButton();
+            this.TB_Save = new System.Windows.Forms.ToolStripButton();
+            this.TB_Del = new System.Windows.Forms.ToolStripButton();
+            this.TB_Grid = new System.Windows.Forms.ToolStripButton();
+            this.TB_AreaBrush = new System.Windows.Forms.ToolStripButton();
+            this.Bt_AddGrid = new System.Windows.Forms.ToolStripButton();
             this.MainMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -89,7 +91,7 @@
             // 
             this.Menu_New.Name = "Menu_New";
             this.Menu_New.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.Menu_New.Size = new System.Drawing.Size(152, 22);
+            this.Menu_New.Size = new System.Drawing.Size(147, 22);
             this.Menu_New.Text = "新建";
             this.Menu_New.Click += new System.EventHandler(this.Menu_New_Click);
             // 
@@ -97,7 +99,7 @@
             // 
             this.Menu_Open.Name = "Menu_Open";
             this.Menu_Open.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.Menu_Open.Size = new System.Drawing.Size(152, 22);
+            this.Menu_Open.Size = new System.Drawing.Size(147, 22);
             this.Menu_Open.Text = "打开";
             this.Menu_Open.Click += new System.EventHandler(this.Menu_Open_Click);
             // 
@@ -105,20 +107,20 @@
             // 
             this.Menu_Save.Name = "Menu_Save";
             this.Menu_Save.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.Menu_Save.Size = new System.Drawing.Size(152, 22);
+            this.Menu_Save.Size = new System.Drawing.Size(147, 22);
             this.Menu_Save.Text = "保存";
             this.Menu_Save.Click += new System.EventHandler(this.Menu_Save_Click);
             // 
             // Menu_SaveAs
             // 
             this.Menu_SaveAs.Name = "Menu_SaveAs";
-            this.Menu_SaveAs.Size = new System.Drawing.Size(152, 22);
+            this.Menu_SaveAs.Size = new System.Drawing.Size(147, 22);
             this.Menu_SaveAs.Text = "另存为";
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             // 
             // 编辑ToolStripMenuItem
@@ -178,97 +180,29 @@
             this.TB_Del,
             this.toolStripSplitButton1,
             this.TB_Grid,
-            this.TB_AreaBrush});
+            this.TB_AreaBrush,
+            this.toolStripSeparator2,
+            this.Bt_AddGrid});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1264, 35);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // TB_New
-            // 
-            this.TB_New.AutoSize = false;
-            this.TB_New.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TB_New.Image = global::DFWEditor_Alpha.Properties.Resources._new;
-            this.TB_New.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TB_New.Name = "TB_New";
-            this.TB_New.Size = new System.Drawing.Size(32, 32);
-            this.TB_New.Text = "toolStripButton1";
-            this.TB_New.ToolTipText = "新建";
-            this.TB_New.Click += new System.EventHandler(this.TB_New_Click);
-            // 
-            // TB_Open
-            // 
-            this.TB_Open.AutoSize = false;
-            this.TB_Open.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TB_Open.Image = global::DFWEditor_Alpha.Properties.Resources.open;
-            this.TB_Open.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TB_Open.Name = "TB_Open";
-            this.TB_Open.Size = new System.Drawing.Size(32, 32);
-            this.TB_Open.Text = "toolStripButton1";
-            this.TB_Open.ToolTipText = "打开贴图";
-            this.TB_Open.Click += new System.EventHandler(this.TB_Open_Click);
-            // 
-            // TB_Save
-            // 
-            this.TB_Save.AutoSize = false;
-            this.TB_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TB_Save.Image = global::DFWEditor_Alpha.Properties.Resources.save;
-            this.TB_Save.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TB_Save.Name = "TB_Save";
-            this.TB_Save.Size = new System.Drawing.Size(32, 32);
-            this.TB_Save.Text = "toolStripButton1";
-            this.TB_Save.ToolTipText = "保存";
-            this.TB_Save.Click += new System.EventHandler(this.TB_Save_Click);
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 35);
-            // 
-            // TB_Del
-            // 
-            this.TB_Del.AutoSize = false;
-            this.TB_Del.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TB_Del.Image = global::DFWEditor_Alpha.Properties.Resources.del;
-            this.TB_Del.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TB_Del.Name = "TB_Del";
-            this.TB_Del.Size = new System.Drawing.Size(32, 32);
-            this.TB_Del.Text = "toolStripButton1";
-            this.TB_Del.ToolTipText = "删除";
             // 
             // toolStripSplitButton1
             // 
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(6, 35);
             // 
-            // TB_Grid
+            // toolStripSeparator2
             // 
-            this.TB_Grid.AutoSize = false;
-            this.TB_Grid.CheckOnClick = true;
-            this.TB_Grid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TB_Grid.Image = global::DFWEditor_Alpha.Properties.Resources.Grid3;
-            this.TB_Grid.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TB_Grid.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TB_Grid.Name = "TB_Grid";
-            this.TB_Grid.Size = new System.Drawing.Size(32, 32);
-            this.TB_Grid.Text = "toolStripButton1";
-            this.TB_Grid.ToolTipText = "显示网格";
-            this.TB_Grid.CheckedChanged += new System.EventHandler(this.TB_Grid_CheckedChanged);
-            // 
-            // TB_AreaBrush
-            // 
-            this.TB_AreaBrush.AutoSize = false;
-            this.TB_AreaBrush.CheckOnClick = true;
-            this.TB_AreaBrush.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TB_AreaBrush.Image = global::DFWEditor_Alpha.Properties.Resources.brushArea;
-            this.TB_AreaBrush.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.TB_AreaBrush.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TB_AreaBrush.Name = "TB_AreaBrush";
-            this.TB_AreaBrush.Size = new System.Drawing.Size(32, 32);
-            this.TB_AreaBrush.Text = "toolStripButton1";
-            this.TB_AreaBrush.ToolTipText = "区域地形刷";
-            this.TB_AreaBrush.CheckedChanged += new System.EventHandler(this.TB_AreaBrush_CheckedChanged);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 35);
             // 
             // splitContainer1
             // 
@@ -313,6 +247,94 @@
             this.MainPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseMove);
             this.MainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseDown);
             this.MainPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseUp);
+            // 
+            // TB_New
+            // 
+            this.TB_New.AutoSize = false;
+            this.TB_New.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TB_New.Image = global::DFWEditor_Alpha.Properties.Resources._new;
+            this.TB_New.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TB_New.Name = "TB_New";
+            this.TB_New.Size = new System.Drawing.Size(32, 32);
+            this.TB_New.Text = "toolStripButton1";
+            this.TB_New.ToolTipText = "新建";
+            this.TB_New.Click += new System.EventHandler(this.TB_New_Click);
+            // 
+            // TB_Open
+            // 
+            this.TB_Open.AutoSize = false;
+            this.TB_Open.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TB_Open.Image = global::DFWEditor_Alpha.Properties.Resources.open;
+            this.TB_Open.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TB_Open.Name = "TB_Open";
+            this.TB_Open.Size = new System.Drawing.Size(32, 32);
+            this.TB_Open.Text = "toolStripButton1";
+            this.TB_Open.ToolTipText = "打开贴图";
+            this.TB_Open.Click += new System.EventHandler(this.TB_Open_Click);
+            // 
+            // TB_Save
+            // 
+            this.TB_Save.AutoSize = false;
+            this.TB_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TB_Save.Image = global::DFWEditor_Alpha.Properties.Resources.save;
+            this.TB_Save.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TB_Save.Name = "TB_Save";
+            this.TB_Save.Size = new System.Drawing.Size(32, 32);
+            this.TB_Save.Text = "toolStripButton1";
+            this.TB_Save.ToolTipText = "保存";
+            this.TB_Save.Click += new System.EventHandler(this.TB_Save_Click);
+            // 
+            // TB_Del
+            // 
+            this.TB_Del.AutoSize = false;
+            this.TB_Del.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TB_Del.Image = global::DFWEditor_Alpha.Properties.Resources.del;
+            this.TB_Del.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TB_Del.Name = "TB_Del";
+            this.TB_Del.Size = new System.Drawing.Size(32, 32);
+            this.TB_Del.Text = "toolStripButton1";
+            this.TB_Del.ToolTipText = "删除";
+            // 
+            // TB_Grid
+            // 
+            this.TB_Grid.AutoSize = false;
+            this.TB_Grid.CheckOnClick = true;
+            this.TB_Grid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TB_Grid.Image = global::DFWEditor_Alpha.Properties.Resources.Grid3;
+            this.TB_Grid.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TB_Grid.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TB_Grid.Name = "TB_Grid";
+            this.TB_Grid.Size = new System.Drawing.Size(32, 32);
+            this.TB_Grid.Text = "toolStripButton1";
+            this.TB_Grid.ToolTipText = "显示网格";
+            this.TB_Grid.CheckedChanged += new System.EventHandler(this.TB_Grid_CheckedChanged);
+            // 
+            // TB_AreaBrush
+            // 
+            this.TB_AreaBrush.AutoSize = false;
+            this.TB_AreaBrush.CheckOnClick = true;
+            this.TB_AreaBrush.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TB_AreaBrush.Image = global::DFWEditor_Alpha.Properties.Resources.brushArea;
+            this.TB_AreaBrush.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.TB_AreaBrush.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TB_AreaBrush.Name = "TB_AreaBrush";
+            this.TB_AreaBrush.Size = new System.Drawing.Size(32, 32);
+            this.TB_AreaBrush.Text = "toolStripButton1";
+            this.TB_AreaBrush.ToolTipText = "区域地形刷";
+            this.TB_AreaBrush.CheckedChanged += new System.EventHandler(this.TB_AreaBrush_CheckedChanged);
+            // 
+            // Bt_AddGrid
+            // 
+            this.Bt_AddGrid.AutoSize = false;
+            this.Bt_AddGrid.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.Bt_AddGrid.CheckOnClick = true;
+            this.Bt_AddGrid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Bt_AddGrid.Image = global::DFWEditor_Alpha.Properties.Resources.NavPoint;
+            this.Bt_AddGrid.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Bt_AddGrid.Name = "Bt_AddGrid";
+            this.Bt_AddGrid.Size = new System.Drawing.Size(32, 32);
+            this.Bt_AddGrid.Text = "toolStripButton1";
+            this.Bt_AddGrid.CheckedChanged += new System.EventHandler(this.Bt_AddGrid_CheckedChanged);
             // 
             // MainForm
             // 
@@ -369,6 +391,8 @@
         private System.Windows.Forms.OpenFileDialog Dlg_OpenMap;
         private System.Windows.Forms.FolderBrowserDialog Dlg_DefaultPath;
         private System.Windows.Forms.ToolStripMenuItem Menu_DefaultPath;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton Bt_AddGrid;
     }
 }
 

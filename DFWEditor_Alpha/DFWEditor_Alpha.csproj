@@ -67,8 +67,15 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="G.cs" />
+    <Compile Include="GridControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GridControl.Designer.cs">
+      <DependentUpon>GridControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImageManager.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="MapGrid.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DlgNew.resx">
@@ -76,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridControl.resx">
+      <DependentUpon>GridControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -130,6 +140,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Close.bmp" />
+    <None Include="Resources\NavPoint.bmp" />
+    <None Include="Resources\GridControl.png" />
     <None Include="ClassDiagram1.cd" />
     <None Include="Resources\basic_texture.png" />
   </ItemGroup>

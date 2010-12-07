@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace DFWEditor_Alpha
 {
-    class MapInfo
+    public class MapInfo
     {
         public Point jailExit;
         public Point hospitalExit;
@@ -35,6 +35,8 @@ namespace DFWEditor_Alpha
 
         // Map info
         public MapInfo info;
+        // Grids
+        public List<MapGrid> grids;
 
         public Map()
         {
@@ -73,6 +75,9 @@ namespace DFWEditor_Alpha
 
             // Map info
             info = new MapInfo();
+
+            // Grids
+            grids = new List<MapGrid>();
         }
 
 
@@ -178,6 +183,24 @@ namespace DFWEditor_Alpha
             MapInfo.AppendChild(PlayerStarts);
             GameLevel.AppendChild(MapInfo);
             // </map info>
+            ///////////////////////////////////////////////////////////////////////////////////
+
+            ///////////////////////////////////////////////////////////////////////////////////
+            // <Grids>
+            XmlElement Grids = xmldoc.CreateElement("Grids");
+            for (int i = 0; i < grids.Count(); i++)
+            {
+                XmlElement Grid = xmldoc.CreateElement("Grid");
+                Grid.SetAttribute("x", grids[i].x.ToString());
+                Grid.SetAttribute("y", grids[i].y.ToString());
+                XmlElement Neighbours = xmldoc.CreateElement("Neighbours");
+                Grid.AppendChild(Neighbours);
+                XmlElement GameplayObjects = xmldoc.CreateElement("GameplayObjects");
+                Grid.AppendChild(GameplayObjects);
+                Grids.AppendChild(Grid);
+            }
+            GameLevel.AppendChild(Grids);
+            // </Grids>
             ///////////////////////////////////////////////////////////////////////////////////
 
             try

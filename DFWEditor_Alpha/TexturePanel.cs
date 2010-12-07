@@ -123,6 +123,8 @@ namespace DFWEditor_Alpha
             if (i >= G.TilesPerLineInTexture || j * G.TilesPerLineInTexture + i > imgList.Count() - 1)
                 return;
 
+            G.operation = 1;
+
             G.selectedTile = imgList[j * G.TilesPerLineInTexture + i];
             selectedIndex = j * G.TilesPerLineInTexture + i;
             G.bRepaintTextures = true;
