@@ -8,6 +8,23 @@ using System.Xml;
 
 namespace DFWEditor_Alpha
 {
+    class MapInfo
+    {
+        public Point jailExit;
+        public Point hospitalExit;
+        public Point[] playerStarts;
+
+        public MapInfo()
+        {
+            jailExit = new Point(-1, -1);
+            hospitalExit = new Point(-1, -1);
+            playerStarts = new Point[4];
+            for (int i = 0; i < 4; i++)
+            {
+                playerStarts[i] = new Point(-1, -1);
+            }
+        }
+    }
     public class Map
     {
         public String name;
@@ -17,9 +34,7 @@ namespace DFWEditor_Alpha
         public int[,] tiles;
 
         // Map info
-        public Point jailExit;
-        public Point hospitalExit;
-        public Point[] playerStarts; 
+        public MapInfo info;
 
         public Map()
         {
@@ -57,13 +72,7 @@ namespace DFWEditor_Alpha
             ImageManager.Cut(texture, G.tileSize, G.tileSize, "png", imgList);
 
             // Map info
-            jailExit = new Point(-1, -1);
-            hospitalExit = new Point(-1, -1);
-            playerStarts = new Point[4];
-            for (int i = 0; i < 4; i++)
-            {
-                playerStarts[i] = new Point(-1, -1);
-            }
+            info = new MapInfo();
         }
 
 
@@ -149,21 +158,21 @@ namespace DFWEditor_Alpha
             XmlElement MapInfo = xmldoc.CreateElement("MapInfo");
             // -->Jail exit
             XmlElement JailExit = xmldoc.CreateElement("JailExit");
-            JailExit.SetAttribute("x", jailExit.X.ToString());
-            JailExit.SetAttribute("y", jailExit.Y.ToString());
+            JailExit.SetAttribute("x", info.jailExit.X.ToString());
+            JailExit.SetAttribute("y", info.jailExit.Y.ToString());
             MapInfo.AppendChild(JailExit);
             // -->Hospital exit
             XmlElement HospitalExit = xmldoc.CreateElement("HospitalExit");
-            HospitalExit.SetAttribute("x", hospitalExit.X.ToString());
-            HospitalExit.SetAttribute("y", hospitalExit.Y.ToString());
+            HospitalExit.SetAttribute("x", info.hospitalExit.X.ToString());
+            HospitalExit.SetAttribute("y", info.hospitalExit.Y.ToString());
             MapInfo.AppendChild(HospitalExit);
             // -->Player starts
             XmlElement PlayerStarts = xmldoc.CreateElement("PlayerStarts");
             for (int i = 0; i < 4; i++)
             {
                 XmlElement Coord2D = xmldoc.CreateElement("Coord2D");
-                Coord2D.SetAttribute("x", playerStarts[i].X.ToString());
-                Coord2D.SetAttribute("y", playerStarts[i].Y.ToString());
+                Coord2D.SetAttribute("x", info.playerStarts[i].X.ToString());
+                Coord2D.SetAttribute("y", info.playerStarts[i].Y.ToString());
                 PlayerStarts.AppendChild(Coord2D);
             }
             MapInfo.AppendChild(PlayerStarts);
