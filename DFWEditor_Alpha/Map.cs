@@ -196,6 +196,23 @@ namespace DFWEditor_Alpha
                 XmlElement Neighbours = xmldoc.CreateElement("Neighbours");
                 Grid.AppendChild(Neighbours);
                 XmlElement GameplayObjects = xmldoc.CreateElement("GameplayObjects");
+                if (grids[i].bank)
+                {
+                    XmlElement Bank = xmldoc.CreateElement("Bank");
+                    Grid.AppendChild(Bank);
+                }
+                if (grids[i].eventContainer.Length > 0)
+                {
+                    XmlElement EventContainer = xmldoc.CreateElement("EventContainer");
+                    EventContainer.SetAttribute("type", grids[i].eventContainer);
+                    Grid.AppendChild(EventContainer);
+                }
+                if (grids[i].deity >= 0)
+                {
+                    XmlElement Deity = xmldoc.CreateElement("Deity");
+                    Deity.SetAttribute("type", grids[i].deity.ToString());
+                    Grid.AppendChild(Deity);
+                }
                 Grid.AppendChild(GameplayObjects);
                 Grids.AppendChild(Grid);
             }

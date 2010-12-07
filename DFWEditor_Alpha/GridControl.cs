@@ -11,6 +11,8 @@ namespace DFWEditor_Alpha
 {
     public partial class GridControl : PictureBox
     {
+        public MapGrid data;
+
         public GridControl()
         {
             InitializeComponent();
@@ -19,6 +21,20 @@ namespace DFWEditor_Alpha
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
+        }
+
+        private void GridControl_DoubleClick(object sender, EventArgs e)
+        {
+            if (data == null)
+                return;
+
+            GridSettings gsDlg = new GridSettings(data.deity, data.eventContainer, data.bank);
+            if (gsDlg.ShowDialog(this) == DialogResult.OK)
+            {
+                data.bank = gsDlg.bBank;
+                data.eventContainer = gsDlg.eventType;
+                data.deity = gsDlg.deity;
+            }
         }
     }
 }

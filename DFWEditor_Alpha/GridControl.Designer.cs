@@ -36,6 +36,7 @@
             this.BackColor = System.Drawing.Color.Transparent;
             this.BackgroundImage = global::DFWEditor_Alpha.Properties.Resources.GridControl;
             this.Size = new System.Drawing.Size(64, 64);
+            this.DoubleClick += new System.EventHandler(this.GridControl_DoubleClick);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

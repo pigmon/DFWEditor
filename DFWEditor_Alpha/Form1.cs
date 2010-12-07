@@ -307,6 +307,25 @@ namespace DFWEditor_Alpha
             }
         }
 
+        private bool CheckTile(int x, int y, int type)
+        {
+            switch (type)
+            {
+                case 2:     // Grid
+                    for (int i = 0; i < G.currentMap.grids.Count(); i++)
+                    {
+                        if (G.currentMap.grids[i].x == x &&
+                            G.currentMap.grids[i].y == y)
+                            return false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return true;
+        }
+
         private Point getMapMouseLoc(int x, int y)
         {
             Point pt = new Point();
@@ -350,12 +369,11 @@ namespace DFWEditor_Alpha
             }
             else if (G.operation == 2)
             {
-
+                MapGrid grid = new MapGrid(pt.X / G.tileSize, pt.Y / G.tileSize);
                 GridControl gc = new GridControl();
                 MainPanel.Controls.Add(gc);
                 gc.Location = new Point(pt.X, pt.Y);
-
-                MapGrid grid = new MapGrid(pt.X / G.tileSize, pt.Y / G.tileSize);
+                gc.data = grid;
                 G.currentMap.grids.Add(grid);
             }
 
