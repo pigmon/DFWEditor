@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.IO;
+using System.Xml;
 
 namespace DFWEditor_Alpha
 {
@@ -14,6 +15,11 @@ namespace DFWEditor_Alpha
         public String textureName;
         public List<Image> imgList;
         public int[,] tiles;
+
+        // Map info
+        public Point jailExit;
+        public Point hospitalExit;
+        public Point[] playerStarts; 
 
         public Map()
         {
@@ -49,14 +55,25 @@ namespace DFWEditor_Alpha
             Image texture = Image.FromFile(_textureName);
             imgList = new List<Image>();
             ImageManager.Cut(texture, G.tileSize, G.tileSize, "png", imgList);
+
+            // Map info
+            jailExit = new Point(-1, -1);
+            hospitalExit = new Point(-1, -1);
+            playerStarts = new Point[4];
+            for (int i = 0; i < 4; i++)
+            {
+                playerStarts[i] = new Point(-1, -1);
+            }
         }
 
 
 
         public void Save()
         {
-            String fileName = G.SavePath + "\\" + name + ".map";
-            SaveAs(fileName);
+            String mapName = G.SavePath + "\\" + name + ".map";
+            SaveAs(mapName);
+            String xmlName = G.SavePath + "\\" + name + ".txt";
+            SaveXml(xmlName);
         }
 
         public void SaveAs(String fileName)
@@ -77,6 +94,90 @@ namespace DFWEditor_Alpha
 
                     sw.WriteLine();
                 }
+            }
+        }
+
+        private void SaveXml(String fileName)
+        {
+            XmlDocument xmldoc = new XmlDocument();
+            // title
+            XmlElement GameLevel = xmldoc.CreateElement("GameLevel");
+            GameLevel.SetAttribute("CurrentPlayer", "0");
+            GameLevel.SetAttribute("CurrentRound", "0");
+            xmldoc.AppendChild(GameLevel);
+
+            ///////////////////////////////////////////////////////////////////////////////////
+            // <Players>
+            XmlElement Players = xmldoc.CreateElement("Players");
+            for (int i = 0; i < 4; i++)
+            {
+                XmlElement Player = xmldoc.CreateElement("Player");
+                Player.SetAttribute("Name", G.players[i]);
+                Player.SetAttribute("Cash", "5000000");
+                Player.SetAttribute("Deposit", "5000000");
+                Player.SetAttribute("UseAI", "1");
+                Player.SetAttribute("StopForThisRound", "0");
+                Player.SetAttribute("Deity", "-1");
+                Player.SetAttribute("DeityDayLeft", "0");
+
+                XmlElement Coord2D1 = xmldoc.CreateElement("Coord2D");
+                Coord2D1.SetAttribute("x", G.playerStartInitX[i].ToString());
+                Coord2D1.SetAttribute("y", "18");
+                Player.AppendChild(Coord2D1);
+                XmlElement Coord2D2 = xmldoc.CreateElement("Coord2D");
+                Coord2D2.SetAttribute("x", "0");
+                Coord2D2.SetAttribute("y", "0");
+                Player.AppendChild(Coord2D2);
+
+                XmlElement PlayerSM = xmldoc.CreateElement("PlayerSM");
+                PlayerSM.SetAttribute("SpecialStateLeft", "0");
+                XmlElement StateMachine = xmldoc.CreateElement("StateMachine");
+                StateMachine.SetAttribute("CurrentState", "0");
+                StateMachine.SetAttribute("NextState", "0");
+                StateMachine.SetAttribute("StateChanged", "0");
+                PlayerSM.AppendChild(StateMachine);
+                Player.AppendChild(PlayerSM);
+
+                Players.AppendChild(Player);
+            }
+            GameLevel.AppendChild(Players);
+            // </Players>
+            ///////////////////////////////////////////////////////////////////////////////////
+
+            ///////////////////////////////////////////////////////////////////////////////////
+            // <map info>
+            XmlElement MapInfo = xmldoc.CreateElement("MapInfo");
+            // -->Jail exit
+            XmlElement JailExit = xmldoc.CreateElement("JailExit");
+            JailExit.SetAttribute("x", jailExit.X.ToString());
+            JailExit.SetAttribute("y", jailExit.Y.ToString());
+            MapInfo.AppendChild(JailExit);
+            // -->Hospital exit
+            XmlElement HospitalExit = xmldoc.CreateElement("HospitalExit");
+            HospitalExit.SetAttribute("x", hospitalExit.X.ToString());
+            HospitalExit.SetAttribute("y", hospitalExit.Y.ToString());
+            MapInfo.AppendChild(HospitalExit);
+            // -->Player starts
+            XmlElement PlayerStarts = xmldoc.CreateElement("PlayerStarts");
+            for (int i = 0; i < 4; i++)
+            {
+                XmlElement Coord2D = xmldoc.CreateElement("Coord2D");
+                Coord2D.SetAttribute("x", playerStarts[i].X.ToString());
+                Coord2D.SetAttribute("y", playerStarts[i].Y.ToString());
+                PlayerStarts.AppendChild(Coord2D);
+            }
+            MapInfo.AppendChild(PlayerStarts);
+            GameLevel.AppendChild(MapInfo);
+            // </map info>
+            ///////////////////////////////////////////////////////////////////////////////////
+
+            try
+            {
+                xmldoc.Save(fileName);
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e.ToString());
             }
         }
 

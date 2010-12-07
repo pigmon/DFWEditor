@@ -22,5 +22,7 @@ namespace DFWEditor_Alpha
         public static int PopZoneWidth;
         public static String SavePath = "C:\\Temp";
         public static TexturePanel currentTexture;
+        public static String[] players = { "草根男", "拜金女", "富八代", "准房奴" };
+        public static int[] playerStartInitX = { 0, 10, 20, 29 };
     }
 }
