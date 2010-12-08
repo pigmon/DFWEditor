@@ -96,6 +96,7 @@ namespace DFWEditor_Alpha
                 if (grids[i].y < height - 1)
                     _nbs.Add(new Point(grids[i].x, grids[i].y + 1));
 
+                grids[i].neighbours.Clear();
                 for (int j = 0; j < _nbs.Count(); j++)
                 {
                     if (gamePlayes[_nbs[j].X, _nbs[j].Y] == 2)
