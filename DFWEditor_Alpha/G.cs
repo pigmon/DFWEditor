@@ -30,6 +30,6 @@ namespace DFWEditor_Alpha
         public static String currentSection = "";
         public static int currentBasePrice = 0;
         public static GPO currentGPO;
-        public enum gpoType { grid = 2, estate };
+        public enum gpoType { grid = 2, estate, hospital, jail, playerStart };
     }
 }

@@ -12,17 +12,13 @@ namespace DFWEditor_Alpha
     {
         public Point jailExit;
         public Point hospitalExit;
-        public Point[] playerStarts;
+        public List<Point> playerStarts;
 
         public MapInfo()
         {
             jailExit = new Point(-1, -1);
             hospitalExit = new Point(-1, -1);
-            playerStarts = new Point[4];
-            for (int i = 0; i < 4; i++)
-            {
-                playerStarts[i] = new Point(-1, -1);
-            }
+            playerStarts = new List<Point>();
         }
     }
     public class Map
@@ -218,21 +214,21 @@ namespace DFWEditor_Alpha
             XmlElement MapInfo = xmldoc.CreateElement("MapInfo");
             // -->Jail exit
             XmlElement JailExit = xmldoc.CreateElement("JailExit");
-            JailExit.SetAttribute("x", info.jailExit.X.ToString());
-            JailExit.SetAttribute("y", info.jailExit.Y.ToString());
+            JailExit.SetAttribute("x", info.jailExit.Y.ToString());
+            JailExit.SetAttribute("y", info.jailExit.X.ToString());
             MapInfo.AppendChild(JailExit);
             // -->Hospital exit
             XmlElement HospitalExit = xmldoc.CreateElement("HospitalExit");
-            HospitalExit.SetAttribute("x", info.hospitalExit.X.ToString());
-            HospitalExit.SetAttribute("y", info.hospitalExit.Y.ToString());
+            HospitalExit.SetAttribute("x", info.hospitalExit.Y.ToString());
+            HospitalExit.SetAttribute("y", info.hospitalExit.X.ToString());
             MapInfo.AppendChild(HospitalExit);
             // -->Player starts
             XmlElement PlayerStarts = xmldoc.CreateElement("PlayerStarts");
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < info.playerStarts.Count(); i++)
             {
                 XmlElement Coord2D = xmldoc.CreateElement("Coord2D");
-                Coord2D.SetAttribute("x", info.playerStarts[i].X.ToString());
-                Coord2D.SetAttribute("y", info.playerStarts[i].Y.ToString());
+                Coord2D.SetAttribute("x", info.playerStarts[i].Y.ToString());
+                Coord2D.SetAttribute("y", info.playerStarts[i].X.ToString());
                 PlayerStarts.AppendChild(Coord2D);
             }
             MapInfo.AppendChild(PlayerStarts);

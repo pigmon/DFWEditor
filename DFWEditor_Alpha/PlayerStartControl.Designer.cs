@@ -1,6 +1,6 @@
 ﻿namespace DFWEditor_Alpha
 {
-    partial class GPO
+    partial class PlayerStartControl
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -31,10 +31,10 @@
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
-            // GPO
+            // PlayerStartControl
             // 
-            this.Size = new System.Drawing.Size(64, 64);
-            this.Click += new System.EventHandler(this.GPO_Click);
+            this.BackgroundImage = global::DFWEditor_Alpha.Properties.Resources.TransTarget;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

@@ -54,7 +54,7 @@ namespace DFWEditor_Alpha
 
             if (G.bRepaintMainPanel)
             {
-                MainPanel.Invalidate();
+                MainPanel.Refresh();
                 G.bRepaintMainPanel = false;
             }
 
@@ -68,6 +68,12 @@ namespace DFWEditor_Alpha
                 Bt_AddGrid.Checked = false;
             if (G.operation != 3)
                 Bt_Land.Checked = false;
+            if (G.operation != 4)
+                Bt_Hospital.Checked = false;
+            if (G.operation != 5)
+                Bt_Jail.Checked = false;
+            if (G.operation != 6)
+                Bt_PlayerStart.Checked = false;
         }
 
         // Check for save when closing or opening
@@ -241,6 +247,24 @@ namespace DFWEditor_Alpha
             }
         }
 
+        private void Bt_Hospital_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Bt_Hospital.Checked)
+                G.operation = 4;
+        }
+
+        private void Bt_Jail_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Bt_Jail.Checked)
+                G.operation = 5;
+        }
+
+        private void Bt_PlayerStart_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Bt_PlayerStart.Checked)
+                G.operation = 6;
+        }
+
         private void DelGPO()
         {
             if (G.currentMap != null && G.currentGPO != null)
@@ -251,8 +275,6 @@ namespace DFWEditor_Alpha
                     G.currentMap.gamePlayes[data.x, data.y] = 0;
                     G.currentMap.grids.Remove(data);
                     data = null;
-                    G.currentGPO.Dispose();
-                    G.currentGPO = null;
                 }
                 else if (G.currentGPO.type == (int)(G.gpoType.estate))
                 {
@@ -260,9 +282,16 @@ namespace DFWEditor_Alpha
                     G.currentMap.gamePlayes[data.x, data.y] = 0;
                     G.currentMap.eStates.Remove(data);
                     data = null;
-                    G.currentGPO.Dispose();
-                    G.currentGPO = null;
                 }
+                else if (G.currentGPO.type == (int)(G.gpoType.playerStart))
+                {
+                    Point pt = new Point(G.currentGPO.Location.X / G.tileSize, G.currentGPO.Location.Y / G.tileSize);
+                    G.currentMap.info.playerStarts.Remove(pt);
+                }
+
+                G.currentMap.gamePlayes[G.currentGPO.Location.X / G.tileSize, G.currentGPO.Location.Y / G.tileSize] = 0;
+                G.currentGPO.Dispose();
+                G.currentGPO = null;
 
                 G.bRepaintMainPanel = true;
             }
@@ -461,8 +490,32 @@ namespace DFWEditor_Alpha
                 AreaStartI = AreaEndI = mousePt.X / G.tileSize;
                 AreaStartJ = AreaEndJ = mousePt.Y / G.tileSize;
             }
+            else if (G.operation == 4)
+            {
+                HospitalControl hc = new HospitalControl();
+                MainPanel.Controls.Add(hc);
+                hc.Location = new Point(mousePt.X, mousePt.Y);
+                G.currentMap.gamePlayes[mousePt.X / G.tileSize, mousePt.Y / G.tileSize] = 4;
+                G.currentMap.info.hospitalExit = new Point(mousePt.X / G.tileSize, mousePt.Y / G.tileSize);
+            }
+            else if (G.operation == 5)
+            {
+                JailControl jc = new JailControl();
+                MainPanel.Controls.Add(jc);
+                jc.Location = new Point(mousePt.X, mousePt.Y);
+                G.currentMap.gamePlayes[mousePt.X / G.tileSize, mousePt.Y / G.tileSize] = 5;
+                G.currentMap.info.jailExit = new Point(mousePt.X / G.tileSize, mousePt.Y / G.tileSize);
+            }
+            else if (G.operation == 6)
+            {
+                PlayerStartControl pc = new PlayerStartControl();
+                MainPanel.Controls.Add(pc);
+                pc.Location = new Point(mousePt.X, mousePt.Y);
+                G.currentMap.gamePlayes[mousePt.X / G.tileSize, mousePt.Y / G.tileSize] = 6;
+                G.currentMap.info.playerStarts.Add(new Point(mousePt.X / G.tileSize, mousePt.Y / G.tileSize));
+            }
 
-            MainPanel.Invalidate();
+            MainPanel.Refresh();
         }
 
         private void MainPanel_MouseLeave(object sender, EventArgs e)

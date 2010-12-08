@@ -102,6 +102,20 @@ namespace DFWEditor_Alpha.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap hospital {
+            get {
+                object obj = ResourceManager.GetObject("hospital", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap Jail {
+            get {
+                object obj = ResourceManager.GetObject("Jail", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap land {
             get {
                 object obj = ResourceManager.GetObject("land", resourceCulture);
@@ -140,6 +154,13 @@ namespace DFWEditor_Alpha.Properties {
         internal static System.Drawing.Bitmap save {
             get {
                 object obj = ResourceManager.GetObject("save", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap TransTarget {
+            get {
+                object obj = ResourceManager.GetObject("TransTarget", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -22,14 +22,6 @@ namespace DFWEditor_Alpha
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
-
-            Graphics g = pe.Graphics;
-
-            if (G.currentGPO == this)
-            {
-                Pen penOutLine = new Pen(Color.Blue, 2);
-                g.DrawRectangle(penOutLine, 1, 1, Size.Width - 2, Size.Height - 2);
-            }
         }
 
         private void EStateControl_DoubleClick(object sender, EventArgs e)
@@ -57,9 +49,6 @@ namespace DFWEditor_Alpha
                 G.chosingGrid = null;
                 G.operation = 1;
             }
-
-            G.currentGPO = this;
-            G.bRepaintMainPanel = true;
         }
     }
 }
