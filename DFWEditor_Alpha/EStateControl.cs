@@ -36,5 +36,15 @@ namespace DFWEditor_Alpha
                 data.basePrice = dlgSettings.basePrice;
             }
         }
+
+        private void EStateControl_Click(object sender, EventArgs e)
+        {
+            if (G.chosingGrid != null)
+            {
+                G.chosingGrid.setEstate(data);
+                G.chosingGrid = null;
+                G.operation = 1;
+            }
+        }
     }
 }

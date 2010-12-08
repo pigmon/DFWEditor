@@ -18,6 +18,12 @@ namespace DFWEditor_Alpha
             InitializeComponent();
         }
 
+        public void setEstate(EState _eState)
+        {
+            if (data != null)
+                data.setEstate(_eState);
+        }
+
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
@@ -36,5 +42,13 @@ namespace DFWEditor_Alpha
                 data.deity = gsDlg.deity;
             }
         }
+
+        private void GridControl_Click(object sender, EventArgs e)
+        {
+            G.chosingGrid = this;
+            G.operation = -1;
+        }
+
+       
     }
 }

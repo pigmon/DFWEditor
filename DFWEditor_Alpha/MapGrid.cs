@@ -5,31 +5,13 @@ using System.Text;
 
 namespace DFWEditor_Alpha
 {
-    public class Estate
-    {
-        public int x;
-        public int y;
-        public String section;
-        public int basePrice;
-        public int level;
-        public int ownderID;
-
-        public Estate()
-        {
-            x = y = ownderID = -1;
-            section = "";
-            level = 0;
-            basePrice = 200000;
-        }
-    }
-
     public class MapGrid
     {
         public int x, y;
         public int deity;
         public String eventContainer;
         public bool bank;
-        public Estate estate;
+        public EState eState;
 
         public MapGrid()
         {
@@ -37,7 +19,6 @@ namespace DFWEditor_Alpha
             deity = -1;
             eventContainer = "";
             bank = false;
-            estate = new Estate();
         }
 
         public MapGrid(int _x, int _y)
@@ -47,7 +28,11 @@ namespace DFWEditor_Alpha
             deity = -1;
             eventContainer = "";
             bank = false;
-            estate = new Estate();
+        }
+
+        public void setEstate(EState _eState)
+        {
+            eState = _eState;
         }
     }
 }

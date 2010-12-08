@@ -213,6 +213,17 @@ namespace DFWEditor_Alpha
                     Deity.SetAttribute("type", grids[i].deity.ToString());
                     Grid.AppendChild(Deity);
                 }
+                if (grids[i].eState != null)
+                {
+                    XmlElement ElemEState = xmldoc.CreateElement("Estate");
+                    ElemEState.SetAttribute("x", (grids[i].eState.x / G.tileSize).ToString());
+                    ElemEState.SetAttribute("y", (grids[i].eState.y / G.tileSize).ToString());
+                    ElemEState.SetAttribute("Section", grids[i].eState.section);
+                    ElemEState.SetAttribute("BasePrice", grids[i].eState.basePrice.ToString());
+                    ElemEState.SetAttribute("Level", "0");
+                    ElemEState.SetAttribute("OwnerID", "-1");
+                    Grid.AppendChild(ElemEState);
+                }
                 Grid.AppendChild(GameplayObjects);
                 Grids.AppendChild(Grid);
             }

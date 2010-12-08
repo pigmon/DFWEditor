@@ -37,6 +37,7 @@
             this.BackgroundImage = global::DFWEditor_Alpha.Properties.Resources.EState;
             this.Size = new System.Drawing.Size(64, 64);
             this.DoubleClick += new System.EventHandler(this.EStateControl_DoubleClick);
+            this.Click += new System.EventHandler(this.EStateControl_Click);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 

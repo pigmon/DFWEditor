@@ -25,5 +25,6 @@ namespace DFWEditor_Alpha
         public static String[] players = { "草根男", "拜金女", "富八代", "准房奴" };
         public static int[] playerStartInitX = { 0, 10, 20, 29 };
         public static int operation = 1;
+        public static GridControl chosingGrid;
     }
 }

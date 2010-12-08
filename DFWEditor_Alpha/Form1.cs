@@ -18,6 +18,7 @@ namespace DFWEditor_Alpha
         private int AreaStartI, AreaStartJ;
         private int AreaEndI, AreaEndJ;
         private int bakOperation;
+        private Point mousePt;
 
         public MainForm()
         {
@@ -293,7 +294,13 @@ namespace DFWEditor_Alpha
                     new Rectangle(startX * G.tileSize, startY * G.tileSize, AreaWidth * G.tileSize, AreaHeight * G.tileSize));
             }
 
-            
+            /*
+            if (G.chosingGrid != null)
+            {
+                Pen pathPen = new Pen(Color.White, 4);
+                g.DrawLine(pathPen, G.chosingGrid.Location.X + 32, G.chosingGrid.Location.Y + 32, mousePt.X, mousePt.Y);
+            }
+            */
         }
 
         private void updateTile(int i, int j)
@@ -354,7 +361,7 @@ namespace DFWEditor_Alpha
         private void MainPanel_MouseDown(object sender, MouseEventArgs e)
         {
             bMouseDownMainPanel = true;
-            Point pt = getMapMouseLoc(e.X, e.Y);
+            mousePt = getMapMouseLoc(e.X, e.Y);
             if (G.currentMap == null)
                     return;
 
@@ -365,30 +372,30 @@ namespace DFWEditor_Alpha
 
                 if (G.bAreaBrush)
                 {
-                    AreaStartI = AreaEndI = pt.X / G.tileSize;
-                    AreaStartJ = AreaEndJ = pt.Y / G.tileSize;
+                    AreaStartI = AreaEndI = mousePt.X / G.tileSize;
+                    AreaStartJ = AreaEndJ = mousePt.Y / G.tileSize;
                 }
                 else
                 {
-                    updateTile(pt.X / G.tileSize, pt.Y / G.tileSize);
+                    updateTile(mousePt.X / G.tileSize, mousePt.Y / G.tileSize);
                 }
             }
             else if (G.operation == 2)
             {
-                MapGrid grid = new MapGrid(pt.X / G.tileSize, pt.Y / G.tileSize);
+                MapGrid grid = new MapGrid(mousePt.X / G.tileSize, mousePt.Y / G.tileSize);
                 GridControl gc = new GridControl();
                 MainPanel.Controls.Add(gc);
-                gc.Location = new Point(pt.X, pt.Y);
+                gc.Location = new Point(mousePt.X, mousePt.Y);
                 gc.data = grid;
                 G.currentMap.grids.Add(grid);
             }
             else if (G.operation == 3)
             {
-                EState eState = new EState(pt.X, pt.Y);
+                EState eState = new EState(mousePt.X, mousePt.Y);
                 EStateControl ec = new EStateControl();
                 ec.data = eState;
                 MainPanel.Controls.Add(ec);
-                ec.Location = new Point(pt.X, pt.Y);
+                ec.Location = new Point(mousePt.X, mousePt.Y);
             }
 
             MainPanel.Invalidate();
@@ -408,9 +415,9 @@ namespace DFWEditor_Alpha
                 if (G.currentTexture == null || G.currentMap == null)
                     return;
 
-                Point pt = getMapMouseLoc(e.X, e.Y);
-                int i = pt.X / G.tileSize;
-                int j = pt.Y / G.tileSize;
+                mousePt = getMapMouseLoc(e.X, e.Y);
+                int i = mousePt.X / G.tileSize;
+                int j = mousePt.Y / G.tileSize;
 
                 if (G.bAreaBrush)
                 {
@@ -443,8 +450,10 @@ namespace DFWEditor_Alpha
 
         private void MainPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            int i = (e.X - e.X % G.tileSize) / G.tileSize;
-            int j = (e.Y - e.Y % G.tileSize) / G.tileSize;
+            mousePt = getMapMouseLoc(e.X, e.Y);
+
+            int i = mousePt.X / G.tileSize;
+            int j = mousePt.Y / G.tileSize;
 
             if (G.operation == 1)
             {
