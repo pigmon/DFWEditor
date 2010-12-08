@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_New = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +49,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Dlg_OpenMap = new System.Windows.Forms.OpenFileDialog();
             this.Dlg_DefaultPath = new System.Windows.Forms.FolderBrowserDialog();
-            this.MainPanel = new DFWEditor_Alpha.DoubleBufferedPanel();
             this.TB_New = new System.Windows.Forms.ToolStripButton();
             this.TB_Open = new System.Windows.Forms.ToolStripButton();
             this.TB_Save = new System.Windows.Forms.ToolStripButton();
@@ -56,6 +56,8 @@
             this.TB_Grid = new System.Windows.Forms.ToolStripButton();
             this.TB_AreaBrush = new System.Windows.Forms.ToolStripButton();
             this.Bt_AddGrid = new System.Windows.Forms.ToolStripButton();
+            this.Bt_Land = new System.Windows.Forms.ToolStripButton();
+            this.MainPanel = new DFWEditor_Alpha.DoubleBufferedPanel();
             this.MainMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -182,7 +184,8 @@
             this.TB_Grid,
             this.TB_AreaBrush,
             this.toolStripSeparator2,
-            this.Bt_AddGrid});
+            this.Bt_AddGrid,
+            this.Bt_Land});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1264, 35);
@@ -233,20 +236,6 @@
             // Dlg_DefaultPath
             // 
             this.Dlg_DefaultPath.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            // 
-            // MainPanel
-            // 
-            this.MainPanel.AutoScroll = true;
-            this.MainPanel.BackColor = System.Drawing.SystemColors.Window;
-            this.MainPanel.Location = new System.Drawing.Point(3, 3);
-            this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(2048, 2048);
-            this.MainPanel.TabIndex = 0;
-            this.MainPanel.MouseLeave += new System.EventHandler(this.MainPanel_MouseLeave);
-            this.MainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MainPanel_Paint);
-            this.MainPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseMove);
-            this.MainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseDown);
-            this.MainPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseUp);
             // 
             // TB_New
             // 
@@ -330,11 +319,42 @@
             this.Bt_AddGrid.CheckOnClick = true;
             this.Bt_AddGrid.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.Bt_AddGrid.Image = global::DFWEditor_Alpha.Properties.Resources.NavPoint;
+            this.Bt_AddGrid.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.Bt_AddGrid.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Bt_AddGrid.Name = "Bt_AddGrid";
             this.Bt_AddGrid.Size = new System.Drawing.Size(32, 32);
             this.Bt_AddGrid.Text = "toolStripButton1";
+            this.Bt_AddGrid.ToolTipText = "路格";
             this.Bt_AddGrid.CheckedChanged += new System.EventHandler(this.Bt_AddGrid_CheckedChanged);
+            // 
+            // Bt_Land
+            // 
+            this.Bt_Land.AutoSize = false;
+            this.Bt_Land.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Bt_Land.CheckOnClick = true;
+            this.Bt_Land.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Bt_Land.Image = ((System.Drawing.Image)(resources.GetObject("Bt_Land.Image")));
+            this.Bt_Land.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.Bt_Land.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Bt_Land.Name = "Bt_Land";
+            this.Bt_Land.Size = new System.Drawing.Size(32, 32);
+            this.Bt_Land.Text = "toolStripButton1";
+            this.Bt_Land.ToolTipText = "土地";
+            this.Bt_Land.CheckedChanged += new System.EventHandler(this.bt_Land_CheckedChanged);
+            // 
+            // MainPanel
+            // 
+            this.MainPanel.AutoScroll = true;
+            this.MainPanel.BackColor = System.Drawing.SystemColors.Window;
+            this.MainPanel.Location = new System.Drawing.Point(3, 3);
+            this.MainPanel.Name = "MainPanel";
+            this.MainPanel.Size = new System.Drawing.Size(2048, 2048);
+            this.MainPanel.TabIndex = 0;
+            this.MainPanel.MouseLeave += new System.EventHandler(this.MainPanel_MouseLeave);
+            this.MainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MainPanel_Paint);
+            this.MainPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseMove);
+            this.MainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseDown);
+            this.MainPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseUp);
             // 
             // MainForm
             // 
@@ -393,6 +413,7 @@
         private System.Windows.Forms.ToolStripMenuItem Menu_DefaultPath;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton Bt_AddGrid;
+        private System.Windows.Forms.ToolStripButton Bt_Land;
     }
 }
 

@@ -107,7 +107,6 @@
             this.CB_Deity.Name = "CB_Deity";
             this.CB_Deity.Size = new System.Drawing.Size(121, 20);
             this.CB_Deity.TabIndex = 7;
-            this.CB_Deity.SelectedIndexChanged += new System.EventHandler(this.CB_Deity_SelectedIndexChanged);
             // 
             // CB_Event
             // 
@@ -119,7 +118,6 @@
             this.CB_Event.Name = "CB_Event";
             this.CB_Event.Size = new System.Drawing.Size(121, 20);
             this.CB_Event.TabIndex = 8;
-            this.CB_Event.SelectedIndexChanged += new System.EventHandler(this.CB_Event_SelectedIndexChanged);
             // 
             // CB_Bank
             // 
@@ -130,7 +128,6 @@
             this.CB_Bank.TabIndex = 9;
             this.CB_Bank.Text = "银行";
             this.CB_Bank.UseVisualStyleBackColor = true;
-            this.CB_Bank.CheckedChanged += new System.EventHandler(this.CB_Bank_CheckedChanged);
             // 
             // GridSettings
             // 

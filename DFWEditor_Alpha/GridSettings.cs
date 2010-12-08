@@ -56,20 +56,5 @@ namespace DFWEditor_Alpha
             DialogResult = DialogResult.Cancel;
             Close();
         }
-
-        private void CB_Deity_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CB_Event_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CB_Bank_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

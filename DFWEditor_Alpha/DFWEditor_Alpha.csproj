@@ -60,6 +60,19 @@
     <Compile Include="DoubleBufferedPanel.Designer.cs">
       <DependentUpon>DoubleBufferedPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="EState.cs" />
+    <Compile Include="EStateControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EStateControl.Designer.cs">
+      <DependentUpon>EStateControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EStateSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EStateSettings.Designer.cs">
+      <DependentUpon>EStateSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +99,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DlgNew.resx">
       <DependentUpon>DlgNew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EStateControl.resx">
+      <DependentUpon>EStateControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EStateSettings.resx">
+      <DependentUpon>EStateSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -149,6 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Close.bmp" />
+    <None Include="Resources\land.png" />
+    <None Include="Resources\EState.png" />
     <None Include="Resources\NavPoint.bmp" />
     <None Include="Resources\GridControl.png" />
     <None Include="ClassDiagram1.cd" />

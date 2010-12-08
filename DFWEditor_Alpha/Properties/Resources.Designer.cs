@@ -81,6 +81,13 @@ namespace DFWEditor_Alpha.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap EState {
+            get {
+                object obj = ResourceManager.GetObject("EState", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Grid3 {
             get {
                 object obj = ResourceManager.GetObject("Grid3", resourceCulture);
@@ -91,6 +98,13 @@ namespace DFWEditor_Alpha.Properties {
         internal static System.Drawing.Bitmap GridControl {
             get {
                 object obj = ResourceManager.GetObject("GridControl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap land {
+            get {
+                object obj = ResourceManager.GetObject("land", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -62,6 +62,11 @@ namespace DFWEditor_Alpha
                 Refresh();
                 G.bRepaintAll = false;
             }
+
+            if (G.operation != 2)
+                Bt_AddGrid.Checked = false;
+            if (G.operation != 3)
+                Bt_Land.Checked = false;
         }
 
         // Check for save when closing or opening
@@ -216,12 +221,13 @@ namespace DFWEditor_Alpha
         private void Bt_AddGrid_CheckedChanged(object sender, EventArgs e)
         {
             if (Bt_AddGrid.Checked)
-            {
-                bakOperation = G.operation;
                 G.operation = 2;
-            }
-            else
-                G.operation = bakOperation;
+        }
+
+        private void bt_Land_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Bt_Land.Checked)
+                G.operation = 3;
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
@@ -375,6 +381,14 @@ namespace DFWEditor_Alpha
                 gc.Location = new Point(pt.X, pt.Y);
                 gc.data = grid;
                 G.currentMap.grids.Add(grid);
+            }
+            else if (G.operation == 3)
+            {
+                EState eState = new EState(pt.X, pt.Y);
+                EStateControl ec = new EStateControl();
+                ec.data = eState;
+                MainPanel.Controls.Add(ec);
+                ec.Location = new Point(pt.X, pt.Y);
             }
 
             MainPanel.Invalidate();
