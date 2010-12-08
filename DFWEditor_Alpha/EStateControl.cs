@@ -41,7 +41,7 @@ namespace DFWEditor_Alpha
         {
             if (G.chosingGrid != null)
             {
-                G.chosingGrid.setEstate(data);
+                G.chosingGrid.SetEstate(data);
                 G.chosingGrid = null;
                 G.operation = 1;
             }

@@ -18,10 +18,10 @@ namespace DFWEditor_Alpha
             InitializeComponent();
         }
 
-        public void setEstate(EState _eState)
+        public void SetEstate(EState _eState)
         {
             if (data != null)
-                data.setEstate(_eState);
+                data.SetEstate(_eState);
         }
 
         protected override void OnPaint(PaintEventArgs pe)

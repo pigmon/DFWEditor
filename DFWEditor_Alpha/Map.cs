@@ -32,6 +32,7 @@ namespace DFWEditor_Alpha
         public String textureName;
         public List<Image> imgList;
         public int[,] tiles;
+        public int[,] gamePlayes;
 
         // Map info
         public MapInfo info;
@@ -67,6 +68,7 @@ namespace DFWEditor_Alpha
                     tiles[i, j] = -1;
                 }
             }
+            gamePlayes = new int[width, height];
 
             textureName = _textureName;
             Image texture = Image.FromFile(_textureName);
@@ -80,10 +82,33 @@ namespace DFWEditor_Alpha
             grids = new List<MapGrid>();
         }
 
+        public void CheckGrids()
+        {
+            for (int i = 0; i < grids.Count(); i++)
+            {
+                List<Point> _nbs = new List<Point>();
+                if (grids[i].x > 0)
+                    _nbs.Add(new Point(grids[i].x - 1, grids[i].y));
+                if (grids[i].x < width - 1)
+                    _nbs.Add(new Point(grids[i].x + 1, grids[i].y));
+                if (grids[i].y > 0)
+                    _nbs.Add(new Point(grids[i].x, grids[i].y - 1));
+                if (grids[i].y < height - 1)
+                    _nbs.Add(new Point(grids[i].x, grids[i].y + 1));
 
+                for (int j = 0; j < _nbs.Count(); j++)
+                {
+                    if (gamePlayes[_nbs[j].X, _nbs[j].Y] == 2)
+                    {
+                        grids[i].neighbours.Add(_nbs[j]);
+                    }
+                }
+            }
+        }
 
         public void Save()
         {
+            CheckGrids();
             String mapName = G.SavePath + "\\" + name + ".map";
             SaveAs(mapName);
             String xmlName = G.SavePath + "\\" + name + ".txt";
@@ -191,9 +216,19 @@ namespace DFWEditor_Alpha
             for (int i = 0; i < grids.Count(); i++)
             {
                 XmlElement Grid = xmldoc.CreateElement("Grid");
-                Grid.SetAttribute("x", grids[i].x.ToString());
-                Grid.SetAttribute("y", grids[i].y.ToString());
+                Grid.SetAttribute("x", grids[i].y.ToString());
+                Grid.SetAttribute("y", grids[i].x.ToString());
                 XmlElement Neighbours = xmldoc.CreateElement("Neighbours");
+                if (grids[i].neighbours != null && grids[i].neighbours.Count() > 0)
+                {
+                    for (int j = 0; j < grids[i].neighbours.Count(); j++)
+                    {
+                        XmlElement nbCoord2D = xmldoc.CreateElement("Coord2D");
+                        nbCoord2D.SetAttribute("x", grids[i].neighbours[j].Y.ToString());
+                        nbCoord2D.SetAttribute("y", grids[i].neighbours[j].X.ToString());
+                        Neighbours.AppendChild(nbCoord2D);
+                    }
+                }
                 Grid.AppendChild(Neighbours);
                 XmlElement GameplayObjects = xmldoc.CreateElement("GameplayObjects");
                 if (grids[i].bank)

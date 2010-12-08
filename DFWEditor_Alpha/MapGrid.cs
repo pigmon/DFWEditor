@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace DFWEditor_Alpha
 {
@@ -12,6 +13,7 @@ namespace DFWEditor_Alpha
         public String eventContainer;
         public bool bank;
         public EState eState;
+        public List<Point> neighbours;
 
         public MapGrid()
         {
@@ -19,6 +21,7 @@ namespace DFWEditor_Alpha
             deity = -1;
             eventContainer = "";
             bank = false;
+            neighbours = new List<Point>();
         }
 
         public MapGrid(int _x, int _y)
@@ -28,11 +31,17 @@ namespace DFWEditor_Alpha
             deity = -1;
             eventContainer = "";
             bank = false;
+            neighbours = new List<Point>();
         }
 
-        public void setEstate(EState _eState)
+        public void SetEstate(EState _eState)
         {
             eState = _eState;
+        }
+
+        public void AddNeighbour(Point loc)
+        {
+            neighbours.Add(loc);
         }
     }
 }

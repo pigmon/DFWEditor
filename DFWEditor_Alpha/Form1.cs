@@ -342,6 +342,7 @@ namespace DFWEditor_Alpha
                         ec.data = eState;
                         MainPanel.Controls.Add(ec);
                         ec.Location = new Point(i * G.tileSize, j * G.tileSize);
+                        G.currentMap.gamePlayes[i, j] = 3;
                     }
                 }
             }
@@ -415,6 +416,7 @@ namespace DFWEditor_Alpha
                 gc.Location = new Point(mousePt.X, mousePt.Y);
                 gc.data = grid;
                 G.currentMap.grids.Add(grid);
+                G.currentMap.gamePlayes[mousePt.X / G.tileSize, mousePt.Y / G.tileSize] = 2;
             }
             else if (G.operation == 3)
             {
