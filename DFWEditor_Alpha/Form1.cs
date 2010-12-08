@@ -228,7 +228,17 @@ namespace DFWEditor_Alpha
         private void bt_Land_CheckedChanged(object sender, EventArgs e)
         {
             if (Bt_Land.Checked)
+            {
+                EStateSettings dlgSettings = new EStateSettings(G.currentSection, G.currentBasePrice);
+
+                if (dlgSettings.ShowDialog(this) == DialogResult.OK)
+                {
+                    G.currentSection = dlgSettings.section;
+                    G.currentBasePrice = dlgSettings.basePrice;
+                }
+
                 G.operation = 3;
+            }
         }
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
@@ -282,7 +292,7 @@ namespace DFWEditor_Alpha
                 }
             }
 
-            if (G.bAreaBrush && bMouseDownMainPanel)
+            if (((G.bAreaBrush && G.operation == 1) || G.operation == 3) && bMouseDownMainPanel)
             {
                 Pen AreaPen = new Pen(Color.Gray, 4);
                 AreaPen.DashStyle = DashStyle.Dot;
@@ -311,11 +321,28 @@ namespace DFWEditor_Alpha
 
         private void updateArea(int iStart, int jStart, int iEnd, int Jend)
         {
-            for (int i = iStart; i <= iEnd; i++)
+            if (G.operation == 1 && G.bAreaBrush)
             {
-                for (int j = jStart; j <= Jend; j++)
+                for (int i = iStart; i <= iEnd; i++)
                 {
-                    G.currentMap.tiles[i, j] = G.currentTexture.getCurrentIndex();
+                    for (int j = jStart; j <= Jend; j++)
+                    {
+                        G.currentMap.tiles[i, j] = G.currentTexture.getCurrentIndex();
+                    }
+                }
+            }
+            else if (G.operation == 3)
+            {
+                for (int i = iStart; i <= iEnd; i++)
+                {
+                    for (int j = jStart; j <= Jend; j++)
+                    {
+                        EState eState = new EState(i * G.tileSize, j * G.tileSize, G.currentSection, G.currentBasePrice);
+                        EStateControl ec = new EStateControl();
+                        ec.data = eState;
+                        MainPanel.Controls.Add(ec);
+                        ec.Location = new Point(i * G.tileSize, j * G.tileSize);
+                    }
                 }
             }
         }
@@ -391,11 +418,15 @@ namespace DFWEditor_Alpha
             }
             else if (G.operation == 3)
             {
+                /*
                 EState eState = new EState(mousePt.X, mousePt.Y);
                 EStateControl ec = new EStateControl();
                 ec.data = eState;
                 MainPanel.Controls.Add(ec);
                 ec.Location = new Point(mousePt.X, mousePt.Y);
+                */
+                AreaStartI = AreaEndI = mousePt.X / G.tileSize;
+                AreaStartJ = AreaEndJ = mousePt.Y / G.tileSize;
             }
 
             MainPanel.Invalidate();
@@ -410,7 +441,7 @@ namespace DFWEditor_Alpha
 
         private void MainPanel_MouseUp(object sender, MouseEventArgs e)
         {
-            if (G.operation == 1)
+            if (G.operation == 1 || G.operation == 3)
             {
                 if (G.currentTexture == null || G.currentMap == null)
                     return;
@@ -419,29 +450,26 @@ namespace DFWEditor_Alpha
                 int i = mousePt.X / G.tileSize;
                 int j = mousePt.Y / G.tileSize;
 
-                if (G.bAreaBrush)
-                {
-                    AreaEndI = i;
-                    AreaEndJ = j;
+                AreaEndI = i;
+                AreaEndJ = j;
 
-                    if (AreaEndI >= G.currentMap.getSize().Width)
-                        AreaEndI = G.currentMap.getSize().Width - 1;
-                    if (AreaEndI < 0)
-                        AreaEndI = 0;
-                    if (AreaEndJ >= G.currentMap.getSize().Height)
-                        AreaEndJ = G.currentMap.getSize().Height - 1;
-                    if (AreaEndJ < 0)
-                        AreaEndJ = 0;
+                if (AreaEndI >= G.currentMap.getSize().Width)
+                    AreaEndI = G.currentMap.getSize().Width - 1;
+                if (AreaEndI < 0)
+                    AreaEndI = 0;
+                if (AreaEndJ >= G.currentMap.getSize().Height)
+                    AreaEndJ = G.currentMap.getSize().Height - 1;
+                if (AreaEndJ < 0)
+                    AreaEndJ = 0;
 
-                    int starti = Math.Min(AreaStartI, AreaEndI);
-                    int startj = Math.Min(AreaStartJ, AreaEndJ);
-                    int endi = Math.Max(AreaStartI, AreaEndI);
-                    int endj = Math.Max(AreaStartJ, AreaEndJ);
+                int starti = Math.Min(AreaStartI, AreaEndI);
+                int startj = Math.Min(AreaStartJ, AreaEndJ);
+                int endi = Math.Max(AreaStartI, AreaEndI);
+                int endj = Math.Max(AreaStartJ, AreaEndJ);
 
-                    updateArea(starti, startj, endi, endj);
+                updateArea(starti, startj, endi, endj);
 
-                    AreaStartI = AreaStartJ = AreaEndI = AreaEndJ = -1;
-                }
+                AreaStartI = AreaStartJ = AreaEndI = AreaEndJ = -1;
             }
 
             bMouseDownMainPanel = false;
@@ -455,13 +483,10 @@ namespace DFWEditor_Alpha
             int i = mousePt.X / G.tileSize;
             int j = mousePt.Y / G.tileSize;
 
-            if (G.operation == 1)
+            if (((G.operation == 1 && G.bAreaBrush) || G.operation == 3) && bMouseDownMainPanel)
             {
-                if (G.bAreaBrush && bMouseDownMainPanel)
-                {
-                    AreaEndI = i;
-                    AreaEndJ = j;
-                }
+                AreaEndI = i;
+                AreaEndJ = j;
             }
 
             MainPanel.Invalidate();
