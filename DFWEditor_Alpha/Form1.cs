@@ -241,6 +241,43 @@ namespace DFWEditor_Alpha
             }
         }
 
+        private void DelGPO()
+        {
+            if (G.currentMap != null && G.currentGPO != null)
+            {
+                if (G.currentGPO.type == (int)(G.gpoType.grid))
+                {
+                    MapGrid data = ((GridControl)G.currentGPO).data;
+                    G.currentMap.gamePlayes[data.x, data.y] = 0;
+                    G.currentMap.grids.Remove(data);
+                    data = null;
+                    G.currentGPO.Dispose();
+                    G.currentGPO = null;
+                }
+                else if (G.currentGPO.type == (int)(G.gpoType.estate))
+                {
+                    EState data = ((EStateControl)G.currentGPO).data;
+                    G.currentMap.gamePlayes[data.x, data.y] = 0;
+                    G.currentMap.eStates.Remove(data);
+                    data = null;
+                    G.currentGPO.Dispose();
+                    G.currentGPO = null;
+                }
+
+                G.bRepaintMainPanel = true;
+            }
+        }
+
+        private void TB_Del_Click(object sender, EventArgs e)
+        {
+            DelGPO();
+        }
+
+        private void Menu_Del_Click(object sender, EventArgs e)
+        {
+            DelGPO();
+        }
+
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
             //splitContainer1.Panel1.Refresh();

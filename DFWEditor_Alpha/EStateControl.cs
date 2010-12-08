@@ -9,18 +9,27 @@ using System.Windows.Forms;
 
 namespace DFWEditor_Alpha
 {
-    public partial class EStateControl : PictureBox
+    public partial class EStateControl : GPO
     {
         public EState data;
 
         public EStateControl()
         {
             InitializeComponent();
+            type = (int)(G.gpoType.estate);
         }
 
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
+
+            Graphics g = pe.Graphics;
+
+            if (G.currentGPO == this)
+            {
+                Pen penOutLine = new Pen(Color.Blue, 2);
+                g.DrawRectangle(penOutLine, 1, 1, Size.Width - 2, Size.Height - 2);
+            }
         }
 
         private void EStateControl_DoubleClick(object sender, EventArgs e)
@@ -35,6 +44,9 @@ namespace DFWEditor_Alpha
                 data.section = dlgSettings.section;
                 data.basePrice = dlgSettings.basePrice;
             }
+
+            G.currentGPO = this;
+            G.bRepaintMainPanel = true;
         }
 
         private void EStateControl_Click(object sender, EventArgs e)
@@ -45,6 +57,9 @@ namespace DFWEditor_Alpha
                 G.chosingGrid = null;
                 G.operation = 1;
             }
+
+            G.currentGPO = this;
+            G.bRepaintMainPanel = true;
         }
     }
 }

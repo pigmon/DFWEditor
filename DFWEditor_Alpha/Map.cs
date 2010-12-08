@@ -84,7 +84,7 @@ namespace DFWEditor_Alpha
             eStates = new List<EState>();
         }
 
-        public EState findEState(int x, int y)
+        public EState FindEState(int x, int y)
         {
             for (int i = 0; i < eStates.Count(); i++)
             {
@@ -118,21 +118,21 @@ namespace DFWEditor_Alpha
                     }
                 }
 
-                if (grids[i].eState == null)
-                {
-                    for (int j = 0; j < _nbs.Count(); j++)
-                    {
-                        if (gamePlayes[_nbs[j].X, _nbs[j].Y] == 3)
-                        {
-                            EState es = findEState(_nbs[j].X, _nbs[j].Y);
-                            if (es != null)
-                            {
-                                grids[i].eState = es;
-                                break;
-                            }
-                        }
-                    }
-                }
+
+               for (int j = 0; j < _nbs.Count(); j++)
+               {
+                   if (gamePlayes[_nbs[j].X, _nbs[j].Y] == 3)
+                   {
+                       EState es = FindEState(_nbs[j].X, _nbs[j].Y);
+                       if (es != null)
+                       {
+                           grids[i].eState = es;
+                           break;
+                       }
+                   }
+
+                   grids[i].eState = null;
+               }
             }
         }
 

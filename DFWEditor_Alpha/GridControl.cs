@@ -9,13 +9,15 @@ using System.Windows.Forms;
 
 namespace DFWEditor_Alpha
 {
-    public partial class GridControl : PictureBox
+    public partial class GridControl : GPO
     {
         public MapGrid data;
 
         public GridControl()
         {
             InitializeComponent();
+
+            type = (int)(G.gpoType.grid);
         }
 
         public void SetEstate(EState _eState)
@@ -27,6 +29,13 @@ namespace DFWEditor_Alpha
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
+            Graphics g = pe.Graphics;
+
+            if (G.currentGPO == this)
+            {
+                Pen penOutLine = new Pen(Color.Blue, 2);
+                g.DrawRectangle(penOutLine, 1, 1, Size.Width-2, Size.Height-2);
+            }
         }
 
         private void GridControl_DoubleClick(object sender, EventArgs e)
@@ -41,12 +50,18 @@ namespace DFWEditor_Alpha
                 data.eventContainer = gsDlg.eventType;
                 data.deity = gsDlg.deity;
             }
+
+            G.currentGPO = this;
+            G.bRepaintMainPanel = true;
         }
 
         private void GridControl_Click(object sender, EventArgs e)
         {
             G.chosingGrid = this;
             G.operation = -1;
+
+            G.currentGPO = this;
+            G.bRepaintMainPanel = true;
         }
 
        

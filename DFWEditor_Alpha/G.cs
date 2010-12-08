@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace DFWEditor_Alpha
 {
@@ -28,5 +29,7 @@ namespace DFWEditor_Alpha
         public static GridControl chosingGrid;
         public static String currentSection = "";
         public static int currentBasePrice = 0;
+        public static GPO currentGPO;
+        public enum gpoType { grid = 2, estate };
     }
 }

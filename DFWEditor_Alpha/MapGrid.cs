@@ -34,6 +34,15 @@ namespace DFWEditor_Alpha
             neighbours = new List<Point>();
         }
 
+        ~MapGrid()
+        {
+            if (neighbours != null)
+            {
+                neighbours.Clear();
+                neighbours = null;
+            }
+        }
+
         public void SetEstate(EState _eState)
         {
             eState = _eState;
