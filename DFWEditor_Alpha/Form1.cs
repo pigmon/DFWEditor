@@ -337,12 +337,13 @@ namespace DFWEditor_Alpha
                 {
                     for (int j = jStart; j <= Jend; j++)
                     {
-                        EState eState = new EState(i * G.tileSize, j * G.tileSize, G.currentSection, G.currentBasePrice);
+                        EState eState = new EState(i, j, G.currentSection, G.currentBasePrice);
                         EStateControl ec = new EStateControl();
                         ec.data = eState;
                         MainPanel.Controls.Add(ec);
                         ec.Location = new Point(i * G.tileSize, j * G.tileSize);
                         G.currentMap.gamePlayes[i, j] = 3;
+                        G.currentMap.eStates.Add(eState);
                     }
                 }
             }
@@ -420,13 +421,6 @@ namespace DFWEditor_Alpha
             }
             else if (G.operation == 3)
             {
-                /*
-                EState eState = new EState(mousePt.X, mousePt.Y);
-                EStateControl ec = new EStateControl();
-                ec.data = eState;
-                MainPanel.Controls.Add(ec);
-                ec.Location = new Point(mousePt.X, mousePt.Y);
-                */
                 AreaStartI = AreaEndI = mousePt.X / G.tileSize;
                 AreaStartJ = AreaEndJ = mousePt.Y / G.tileSize;
             }

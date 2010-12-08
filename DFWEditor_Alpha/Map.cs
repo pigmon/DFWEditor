@@ -33,6 +33,7 @@ namespace DFWEditor_Alpha
         public List<Image> imgList;
         public int[,] tiles;
         public int[,] gamePlayes;
+        public List<EState> eStates;
 
         // Map info
         public MapInfo info;
@@ -80,6 +81,18 @@ namespace DFWEditor_Alpha
 
             // Grids
             grids = new List<MapGrid>();
+            eStates = new List<EState>();
+        }
+
+        public EState findEState(int x, int y)
+        {
+            for (int i = 0; i < eStates.Count(); i++)
+            {
+                if (eStates[i].x == x && eStates[i].y == y)
+                    return eStates[i];
+            }
+
+            return null;
         }
 
         public void CheckGrids()
@@ -102,6 +115,22 @@ namespace DFWEditor_Alpha
                     if (gamePlayes[_nbs[j].X, _nbs[j].Y] == 2)
                     {
                         grids[i].neighbours.Add(_nbs[j]);
+                    }
+                }
+
+                if (grids[i].eState == null)
+                {
+                    for (int j = 0; j < _nbs.Count(); j++)
+                    {
+                        if (gamePlayes[_nbs[j].X, _nbs[j].Y] == 3)
+                        {
+                            EState es = findEState(_nbs[j].X, _nbs[j].Y);
+                            if (es != null)
+                            {
+                                grids[i].eState = es;
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -235,30 +264,30 @@ namespace DFWEditor_Alpha
                 if (grids[i].bank)
                 {
                     XmlElement Bank = xmldoc.CreateElement("Bank");
-                    Grid.AppendChild(Bank);
+                    GameplayObjects.AppendChild(Bank);
                 }
                 if (grids[i].eventContainer.Length > 0)
                 {
                     XmlElement EventContainer = xmldoc.CreateElement("EventContainer");
                     EventContainer.SetAttribute("type", grids[i].eventContainer);
-                    Grid.AppendChild(EventContainer);
+                    GameplayObjects.AppendChild(EventContainer);
                 }
                 if (grids[i].deity >= 0)
                 {
                     XmlElement Deity = xmldoc.CreateElement("Deity");
                     Deity.SetAttribute("type", grids[i].deity.ToString());
-                    Grid.AppendChild(Deity);
+                    GameplayObjects.AppendChild(Deity);
                 }
                 if (grids[i].eState != null)
                 {
                     XmlElement ElemEState = xmldoc.CreateElement("Estate");
-                    ElemEState.SetAttribute("x", (grids[i].eState.x / G.tileSize).ToString());
-                    ElemEState.SetAttribute("y", (grids[i].eState.y / G.tileSize).ToString());
+                    ElemEState.SetAttribute("x", grids[i].eState.y.ToString());
+                    ElemEState.SetAttribute("y", grids[i].eState.x.ToString());
                     ElemEState.SetAttribute("Section", grids[i].eState.section);
                     ElemEState.SetAttribute("BasePrice", grids[i].eState.basePrice.ToString());
                     ElemEState.SetAttribute("Level", "0");
                     ElemEState.SetAttribute("OwnerID", "-1");
-                    Grid.AppendChild(ElemEState);
+                    GameplayObjects.AppendChild(ElemEState);
                 }
                 Grid.AppendChild(GameplayObjects);
                 Grids.AppendChild(Grid);
