@@ -17,7 +17,6 @@ namespace DFWEditor_Alpha
         private bool bMouseDownMainPanel;
         private int AreaStartI, AreaStartJ;
         private int AreaEndI, AreaEndJ;
-        private int bakOperation;
         private Point mousePt;
 
         public MainForm()
@@ -28,7 +27,6 @@ namespace DFWEditor_Alpha
             bMouseDownMainPanel = false;
             AreaStartI = AreaStartJ = AreaEndI = AreaEndJ = -1;
             Dlg_OpenMap.InitialDirectory = G.SavePath;
-            bakOperation = 1;
 
             // Timer
             timer.Tick += new EventHandler(TimerProcess);
@@ -95,11 +93,13 @@ namespace DFWEditor_Alpha
                     G.currentMap.Save();
                     G.currentMap.Clean();
                     G.currentMap = null;
+                    CleanScene();
                 }
                 else
                 {
                     G.currentMap.Clean();
                     G.currentMap = null;
+                    CleanScene();
                 }
             }
 
@@ -108,7 +108,25 @@ namespace DFWEditor_Alpha
             {
                 G.currentTexture = new TexturePanel(G.currentMap.textureName, G.currentMap.imgList);
                 this.splitContainer1.Panel1.Controls.Add(G.currentTexture);
+                G.bRepaintMainPanel = true;
             }
+        }
+
+        private void CleanScene()
+        {
+            for (int i = 0; i < MainPanel.Controls.Count; i++)
+            {
+                if (MainPanel.Controls[i] != null)
+                    MainPanel.Controls[i].Dispose();
+            }
+
+            MainPanel.Controls.Clear();
+
+            G.currentTexture.Dispose();
+            G.currentTexture = null;
+            splitContainer1.Panel1.Controls.Clear();
+
+            G.bRepaintAll = true;
         }
 
         private void TB_Open_Click(object sender, EventArgs e)
@@ -124,11 +142,13 @@ namespace DFWEditor_Alpha
                     G.currentMap.Save();
                     G.currentMap.Clean();
                     G.currentMap = null;
+                    CleanScene();
                 }
                 else
                 {
                     G.currentMap.Clean();
                     G.currentMap = null;
+                    CleanScene();
                 }
             }
             Dlg_OpenMap.ShowDialog(this);
@@ -147,11 +167,13 @@ namespace DFWEditor_Alpha
                     G.currentMap.Save();
                     G.currentMap.Clean();
                     G.currentMap = null;
+                    CleanScene();
                 }
                 else
                 {
                     G.currentMap.Clean();
                     G.currentMap = null;
+                    CleanScene();
                 }
             }
             Dlg_OpenMap.ShowDialog(this);
@@ -262,6 +284,8 @@ namespace DFWEditor_Alpha
                     ec.Location = new Point(G.currentMap.grids[i].eState.x * G.tileSize, G.currentMap.grids[i].eState.y * G.tileSize);
                 }
             }
+
+            G.bRepaintMainPanel = true;
         }
 
         private void Bt_AddGrid_CheckedChanged(object sender, EventArgs e)

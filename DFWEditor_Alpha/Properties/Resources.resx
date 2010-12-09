@@ -148,9 +148,6 @@
   <data name="NavPoint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NavPoint.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="EState" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\EState.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="land" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\land.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -168,5 +165,8 @@
   </data>
   <data name="Build" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Build.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EState" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\EState.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -186,13 +186,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Close.bmp" />
+    <None Include="Resources\EState.png" />
     <None Include="Resources\Build.png" />
     <None Include="Resources\bank.png" />
     <None Include="Resources\TransTarget.bmp" />
     <None Include="Resources\Jail.png" />
     <None Include="Resources\hospital.png" />
     <None Include="Resources\land.png" />
-    <None Include="Resources\EState.png" />
     <None Include="Resources\NavPoint.bmp" />
     <None Include="Resources\GridControl.png" />
     <None Include="ClassDiagram1.cd" />
