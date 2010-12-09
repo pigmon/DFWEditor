@@ -242,6 +242,8 @@ namespace DFWEditor_Alpha
         public void Save()
         {
             CheckGrids();
+            if (!Directory.Exists(G.SavePath))
+                Directory.CreateDirectory(G.SavePath);
             String mapName = G.SavePath + "\\" + name + ".map";
             SaveAs(mapName);
             String xmlName = G.SavePath + "\\" + name + ".txt";
