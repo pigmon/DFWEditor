@@ -159,6 +159,44 @@ namespace DFWEditor_Alpha
 
                     sw.WriteLine();
                 }
+
+                sw.WriteLine("// GPO info");
+                sw.WriteLine(info.jailExit.X);
+                sw.WriteLine(info.jailExit.Y);
+                sw.WriteLine(info.hospitalExit.X);
+                sw.WriteLine(info.hospitalExit.Y);
+                int startCount = info.playerStarts.Count();
+                sw.WriteLine(startCount);
+                for (int i = 0; i < startCount; i++)
+                {
+                    sw.Write(info.playerStarts[i].X + "," + info.playerStarts[i].Y + ",");
+                }
+                sw.WriteLine();
+
+                sw.WriteLine("//Grids");
+                int gCount = grids.Count();
+                sw.WriteLine(gCount);
+                for (int i = 0; i < gCount; i++)
+                {
+                    //sw.WriteLine("//--Grid" + i);
+                    sw.WriteLine(grids[i].x + "," + grids[i].y + "," + grids[i].eventContainer + "," + grids[i].bank);
+                    //sw.WriteLine("//----EState");
+                    if (grids[i].eState != null)
+                        sw.WriteLine(grids[i].eState.x + "," + grids[i].eState.y + "," + grids[i].eState.section + "," + grids[i].eState.basePrice);
+                    else
+                        sw.WriteLine("null");
+                    int nbCount = grids[i].neighbours.Count();
+                    //sw.WriteLine("//----neighbours");
+                    sw.Write(nbCount + ",");
+                    if (nbCount > 0)
+                    {
+                        for (int j = 0; j < nbCount; j++)
+                        {
+                            sw.Write(grids[i].neighbours[j].X + "," + grids[i].neighbours[j].Y + ",");
+                        }
+                        sw.WriteLine();
+                    }
+                }
             }
         }
 
@@ -262,7 +300,7 @@ namespace DFWEditor_Alpha
                     XmlElement Bank = xmldoc.CreateElement("Bank");
                     GameplayObjects.AppendChild(Bank);
                 }
-                if (grids[i].eventContainer.Length > 0)
+                if (grids[i].eventContainer != "null")
                 {
                     XmlElement EventContainer = xmldoc.CreateElement("EventContainer");
                     EventContainer.SetAttribute("type", grids[i].eventContainer);
@@ -324,7 +362,78 @@ namespace DFWEditor_Alpha
                         tiles[i, j] = Int32.Parse(nums[i]) - 1;
                     }
                 }
+
+                // GPO
+                sr.ReadLine();
+                int jailx = Int32.Parse(sr.ReadLine());
+                int jaily = Int32.Parse(sr.ReadLine());
+                info.jailExit = new Point(jailx, jaily);
+                gamePlayes[jailx, jaily] = 5;
+                int hospitalx = Int32.Parse(sr.ReadLine());
+                int hospitaly = Int32.Parse(sr.ReadLine());
+                info.hospitalExit = new Point(hospitalx, hospitaly);
+                gamePlayes[hospitalx, hospitaly] = 4;
+                int playerStartCount = Int32.Parse(sr.ReadLine());
+                if (playerStartCount > 0)
+                {
+                    String line = sr.ReadLine();
+                    String[] nums = line.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+
+                    for (int j = 0; j < nums.Count()-1; j+=2)
+                    {
+                        int x = Int32.Parse(nums[j]);
+                        int y = Int32.Parse(nums[j + 1]);
+                        Point pt = new Point(x, y);
+                        info.playerStarts.Add(pt);
+                        gamePlayes[x, y] = 6;
+                    }
+                }
+
+                
+                // Grids
+                sr.ReadLine();
+                int gCount = Int32.Parse(sr.ReadLine());
+                for (int i = 0; i < gCount; i++)
+                {
+                    MapGrid grid = new MapGrid();
+                    String baseInfoLine = sr.ReadLine();
+                    String[] baseNums = baseInfoLine.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                    grid.x = Int32.Parse(baseNums[0]);
+                    grid.y = Int32.Parse(baseNums[1]);
+                    grid.eventContainer = baseNums[2];
+                    grid.bank = Boolean.Parse(baseNums[3]);
+
+                    String esLine = sr.ReadLine();
+                    if (esLine != "null")
+                    {
+                        String[] esNums = esLine.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                        int x = Int32.Parse(esNums[0]);
+                        int y = Int32.Parse(esNums[1]);
+                        String section = esNums[2];
+                        int basePrice = Int32.Parse(esNums[3]);
+                        grid.eState = new EState(x, y, section, basePrice);
+                        gamePlayes[x, y] = 3;
+                        eStates.Add(grid.eState);
+                    }
+
+                    String nbLine = sr.ReadLine();
+                    String[] nbNums = nbLine.Split(sep, StringSplitOptions.RemoveEmptyEntries);
+                    int nbCount = Int32.Parse(nbNums[0]);
+                    for (int j = 1; j < nbCount-1; j+=2)
+                    {
+                        int x = Int32.Parse(nbNums[j]);
+                        int y = Int32.Parse(nbNums[j + 1]);
+                        Point pt = new Point(x, y);
+                        grid.neighbours.Add(pt);
+                    }
+
+                    grids.Add(grid);
+                    gamePlayes[grid.x, grid.y] = 2;
+                }
+                
+              
             }
+
         }
 
         public void Clean()

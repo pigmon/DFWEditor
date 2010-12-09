@@ -13,7 +13,7 @@ namespace DFWEditor_Alpha
 
         public EState(int _x, int _y)
         {
-            section = "";
+            section = "null";
             basePrice = 0;
             x = _x;
             y = _y;

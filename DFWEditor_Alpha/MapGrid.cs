@@ -19,7 +19,7 @@ namespace DFWEditor_Alpha
         {
             x = y = -1;
             deity = -1;
-            eventContainer = "";
+            eventContainer = "null";
             bank = false;
             neighbours = new List<Point>();
         }
@@ -29,7 +29,7 @@ namespace DFWEditor_Alpha
             x = _x;
             y = _y;
             deity = -1;
-            eventContainer = "";
+            eventContainer = "null";
             bank = false;
             neighbours = new List<Point>();
         }

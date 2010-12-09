@@ -223,6 +223,39 @@ namespace DFWEditor_Alpha
             G.currentMap.Load(fileName);
             G.currentTexture = new TexturePanel(G.currentMap.textureName, G.currentMap.imgList);
             this.splitContainer1.Panel1.Controls.Add(G.currentTexture);
+
+            JailControl jc = new JailControl();
+            MainPanel.Controls.Add(jc);
+            jc.Location = new Point(G.currentMap.info.jailExit.X * G.tileSize, G.currentMap.info.jailExit.Y * G.tileSize);
+
+            HospitalControl hc = new HospitalControl();
+            MainPanel.Controls.Add(hc);
+            hc.Location = new Point(G.currentMap.info.hospitalExit.X * G.tileSize, G.currentMap.info.hospitalExit.Y * G.tileSize);
+
+            int psCount = G.currentMap.info.playerStarts.Count();
+            for (int i = 0; i < psCount; i++)
+            {
+                PlayerStartControl pc = new PlayerStartControl();
+                MainPanel.Controls.Add(pc);
+                pc.Location = new Point(G.currentMap.info.playerStarts[i].X * G.tileSize, G.currentMap.info.playerStarts[i].Y * G.tileSize);
+            }
+
+            int gridCount = G.currentMap.grids.Count();
+            for (int i = 0; i < gridCount; i++)
+            {
+                GridControl gc = new GridControl();
+                MainPanel.Controls.Add(gc);
+                gc.data = G.currentMap.grids[i];
+                gc.Location = new Point(G.currentMap.grids[i].x * G.tileSize, G.currentMap.grids[i].y * G.tileSize);
+
+                if (G.currentMap.grids[i].eState != null)
+                {
+                    EStateControl ec = new EStateControl();
+                    MainPanel.Controls.Add(ec);
+                    ec.data = G.currentMap.grids[i].eState;
+                    ec.Location = new Point(G.currentMap.grids[i].eState.x * G.tileSize, G.currentMap.grids[i].eState.y * G.tileSize);
+                }
+            }
         }
 
         private void Bt_AddGrid_CheckedChanged(object sender, EventArgs e)

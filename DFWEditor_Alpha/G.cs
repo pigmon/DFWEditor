@@ -27,7 +27,7 @@ namespace DFWEditor_Alpha
         public static int[] playerStartInitX = { 0, 10, 20, 29 };
         public static int operation = 1;
         public static GridControl chosingGrid;
-        public static String currentSection = "";
+        public static String currentSection = "null";
         public static int currentBasePrice = 0;
         public static GPO currentGPO;
         public enum gpoType { grid = 2, estate, hospital, jail, playerStart };
