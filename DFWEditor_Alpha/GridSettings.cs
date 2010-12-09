@@ -38,7 +38,7 @@ namespace DFWEditor_Alpha
             else
             {
                 CB_Event.SelectedIndex = -1;
-                eventType = "";
+                eventType = "null";
             }
 
             Lb_ESLoc.Text = "(" + esLoc.X.ToString() + " ," + esLoc.Y.ToString() + ")";
@@ -48,7 +48,10 @@ namespace DFWEditor_Alpha
         private void Bt_OK_Click(object sender, EventArgs e)
         {
             deity = CB_Deity.SelectedIndex;
-            eventType = CB_Event.Text;
+            if (CB_Event.Text.Length > 0)
+                eventType = CB_Event.Text;
+            else
+                eventType = "null";
             bBank = CB_Bank.Checked;
 
             DialogResult = DialogResult.OK;

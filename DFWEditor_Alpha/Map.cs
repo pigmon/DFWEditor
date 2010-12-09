@@ -179,7 +179,7 @@ namespace DFWEditor_Alpha
                 for (int i = 0; i < gCount; i++)
                 {
                     //sw.WriteLine("//--Grid" + i);
-                    sw.WriteLine(grids[i].x + "," + grids[i].y + "," + grids[i].eventContainer + "," + grids[i].bank);
+                    sw.WriteLine(grids[i].x + "," + grids[i].y + "," + grids[i].eventContainer + "," + grids[i].deity + "," + grids[i].bank);
                     //sw.WriteLine("//----EState");
                     if (grids[i].eState != null)
                         sw.WriteLine(grids[i].eState.x + "," + grids[i].eState.y + "," + grids[i].eState.section + "," + grids[i].eState.basePrice);
@@ -368,18 +368,20 @@ namespace DFWEditor_Alpha
                 int jailx = Int32.Parse(sr.ReadLine());
                 int jaily = Int32.Parse(sr.ReadLine());
                 info.jailExit = new Point(jailx, jaily);
-                gamePlayes[jailx, jaily] = 5;
+                if (jailx != -1 && jaily != -1)
+                    gamePlayes[jailx, jaily] = 5;
                 int hospitalx = Int32.Parse(sr.ReadLine());
                 int hospitaly = Int32.Parse(sr.ReadLine());
                 info.hospitalExit = new Point(hospitalx, hospitaly);
-                gamePlayes[hospitalx, hospitaly] = 4;
+                if (hospitalx != -1 && hospitaly != -1)
+                    gamePlayes[hospitalx, hospitaly] = 4;
                 int playerStartCount = Int32.Parse(sr.ReadLine());
                 if (playerStartCount > 0)
                 {
                     String line = sr.ReadLine();
                     String[] nums = line.Split(sep, StringSplitOptions.RemoveEmptyEntries);
 
-                    for (int j = 0; j < nums.Count()-1; j+=2)
+                    for (int j = 0; j < nums.Count() - 1; j += 2)
                     {
                         int x = Int32.Parse(nums[j]);
                         int y = Int32.Parse(nums[j + 1]);
@@ -388,6 +390,9 @@ namespace DFWEditor_Alpha
                         gamePlayes[x, y] = 6;
                     }
                 }
+                else
+                    sr.ReadLine();
+                    
 
                 
                 // Grids
@@ -401,7 +406,8 @@ namespace DFWEditor_Alpha
                     grid.x = Int32.Parse(baseNums[0]);
                     grid.y = Int32.Parse(baseNums[1]);
                     grid.eventContainer = baseNums[2];
-                    grid.bank = Boolean.Parse(baseNums[3]);
+                    grid.deity = Int32.Parse(baseNums[3]);
+                    grid.bank = Boolean.Parse(baseNums[4]);
 
                     String esLine = sr.ReadLine();
                     if (esLine != "null")
