@@ -80,6 +80,80 @@ namespace DFWEditor_Alpha
             eStates = new List<EState>();
         }
 
+        public String Check()
+        {
+            Save();
+            int warningCount = 0;
+            int errorCount = 0;
+            String ret = "Build resulds: \n";
+            // Check the player starts
+            if (info.playerStarts.Count() != 4)
+            {
+                ret += "Warning: Player Start数量为" + info.playerStarts.Count() + ", 应为4。\n";
+                warningCount++;
+            }
+            // Hospital
+            if (info.hospitalExit.X == -1 || info.hospitalExit.Y == -1)
+            {
+                ret += "Warning: 没有设置医院出口。\n";
+                warningCount++;
+            }
+            // Jail
+            if (info.jailExit.X == -1 || info.jailExit.Y == -1)
+            {
+                ret += "Warning: 没有设置监狱出口。\n";
+                warningCount++;
+            }
+
+            if (grids == null || grids.Count() == 0)
+            {
+                ret += "Error: 没有路径！\n";
+                errorCount++;
+            }
+            for (int i = 0; i < grids.Count(); i++)
+            {
+                if (grids[i].neighbours.Count() == 0)
+                {
+                    ret += "Error: Grid (" + grids[i].x + ", " + grids[i].y + ")与其他任何Grid没有相邻。\n";
+                    errorCount++;
+                }
+
+                int esCount = 0;
+                List<Point> _nbs = new List<Point>();
+                if (grids[i].x > 0)
+                    _nbs.Add(new Point(grids[i].x - 1, grids[i].y));
+                if (grids[i].x < width - 1)
+                    _nbs.Add(new Point(grids[i].x + 1, grids[i].y));
+                if (grids[i].y > 0)
+                    _nbs.Add(new Point(grids[i].x, grids[i].y - 1));
+                if (grids[i].y < height - 1)
+                    _nbs.Add(new Point(grids[i].x, grids[i].y + 1));
+
+                for (int j = 0; j < _nbs.Count(); j++)
+                {
+                    if (gamePlayes[_nbs[j].X, _nbs[j].Y] == 3)
+                    {
+                        esCount++;
+                    }
+                }
+
+                if (esCount > 1)
+                {
+                    ret += "Error: Grid (" + grids[i].x + ", " + grids[i].y + ")与超过一处地产相邻。\n";
+                    errorCount++;
+                }
+
+                _nbs.Clear();
+                _nbs = null;
+            }
+
+            ret += "\n\n";
+            ret += "Warnings: " + warningCount + "\n";
+            ret += "Errors: " + errorCount + "\n";
+            
+            return ret;
+        }
+
         public EState FindEState(int x, int y)
         {
             for (int i = 0; i < eStates.Count(); i++)
@@ -123,20 +197,23 @@ namespace DFWEditor_Alpha
                 }
 
 
-               for (int j = 0; j < _nbs.Count(); j++)
-               {
-                   if (gamePlayes[_nbs[j].X, _nbs[j].Y] == 3)
-                   {
-                       EState es = FindEState(_nbs[j].X, _nbs[j].Y);
-                       if (es != null)
-                       {
-                           grids[i].eState = es;
-                           break;
-                       }
-                   }
+                for (int j = 0; j < _nbs.Count(); j++)
+                {
+                    if (gamePlayes[_nbs[j].X, _nbs[j].Y] == 3)
+                    {
+                        EState es = FindEState(_nbs[j].X, _nbs[j].Y);
+                        if (es != null)
+                        {
+                            grids[i].eState = es;
+                            break;
+                        }
+                    }
 
-                   grids[i].eState = null;
-               }
+                    grids[i].eState = null;
+                }
+
+                _nbs.Clear();
+                _nbs = null;
             }
         }
 
@@ -147,8 +224,18 @@ namespace DFWEditor_Alpha
                 Point loc = new Point(grids[i].x, grids[i].y);
                 if (info.hospitalExit != loc)
                     grids[i].bHospital = false;
+                else
+                {
+                    if (info.hospitalExit == loc && !grids[i].bHospital)
+                        info.hospitalExit = new Point(-1, -1);
+                }
                 if (info.jailExit != loc)
                     grids[i].bJail = false;
+                else
+                {
+                    if (info.jailExit == loc && !grids[i].bJail)
+                        info.jailExit = new Point(-1, -1);
+                }
             }
         }
 
@@ -203,6 +290,8 @@ namespace DFWEditor_Alpha
                         }
                         sw.WriteLine();
                     }
+                    else
+                        sw.WriteLine();
                 }
             }
         }

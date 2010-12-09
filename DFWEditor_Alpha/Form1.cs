@@ -211,6 +211,28 @@ namespace DFWEditor_Alpha
                 G.SavePath = Dlg_DefaultPath.SelectedPath;
         }
 
+        private void Tb_Check_Click(object sender, EventArgs e)
+        {
+            if (G.currentMap == null)
+                return;
+
+            OutPut dlg_output = new OutPut();
+            String output = G.currentMap.Check();
+            dlg_output.setText(output);
+            dlg_output.Show(this);
+        }
+
+        private void Menu_Check_Click(object sender, EventArgs e)
+        {
+            if (G.currentMap == null)
+                return;
+
+            OutPut dlg_output = new OutPut();
+            String output = G.currentMap.Check();
+            dlg_output.setText(output);
+            dlg_output.Show(this);
+        }
+
         private void LeftPanel_Paint(object sender, PaintEventArgs e)
         {
             
@@ -223,22 +245,6 @@ namespace DFWEditor_Alpha
             G.currentMap.Load(fileName);
             G.currentTexture = new TexturePanel(G.currentMap.textureName, G.currentMap.imgList);
             this.splitContainer1.Panel1.Controls.Add(G.currentTexture);
-
-            //JailControl jc = new JailControl();
-            //MainPanel.Controls.Add(jc);
-            //jc.Location = new Point(G.currentMap.info.jailExit.X * G.tileSize, G.currentMap.info.jailExit.Y * G.tileSize);
-
-            //HospitalControl hc = new HospitalControl();
-            //MainPanel.Controls.Add(hc);
-            //hc.Location = new Point(G.currentMap.info.hospitalExit.X * G.tileSize, G.currentMap.info.hospitalExit.Y * G.tileSize);
-
-            //int psCount = G.currentMap.info.playerStarts.Count();
-            //for (int i = 0; i < psCount; i++)
-            //{
-            //    PlayerStartControl pc = new PlayerStartControl();
-            //    MainPanel.Controls.Add(pc);
-            //    pc.Location = new Point(G.currentMap.info.playerStarts[i].X * G.tileSize, G.currentMap.info.playerStarts[i].Y * G.tileSize);
-            //}
 
             int gridCount = G.currentMap.grids.Count();
             for (int i = 0; i < gridCount; i++)
@@ -640,6 +646,5 @@ namespace DFWEditor_Alpha
 
             G.bRepaintAll = true;
         }
-
     }
 }

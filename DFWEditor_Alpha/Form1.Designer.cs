@@ -37,6 +37,7 @@
             this.Menu_SaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.编辑ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_Del = new System.Windows.Forms.ToolStripMenuItem();
             this.工具ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_ShowGrid = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_AreaBrush = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,9 +50,9 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Dlg_OpenMap = new System.Windows.Forms.OpenFileDialog();
             this.Dlg_DefaultPath = new System.Windows.Forms.FolderBrowserDialog();
-            this.Menu_Del = new System.Windows.Forms.ToolStripMenuItem();
             this.TB_New = new System.Windows.Forms.ToolStripButton();
             this.TB_Open = new System.Windows.Forms.ToolStripButton();
+            this.Tb_Check = new System.Windows.Forms.ToolStripButton();
             this.TB_Save = new System.Windows.Forms.ToolStripButton();
             this.TB_Del = new System.Windows.Forms.ToolStripButton();
             this.TB_Grid = new System.Windows.Forms.ToolStripButton();
@@ -62,6 +63,7 @@
             this.Bt_Jail = new System.Windows.Forms.ToolStripButton();
             this.Bt_PlayerStart = new System.Windows.Forms.ToolStripButton();
             this.MainPanel = new DFWEditor_Alpha.DoubleBufferedPanel();
+            this.Menu_Check = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -97,7 +99,7 @@
             // 
             this.Menu_New.Name = "Menu_New";
             this.Menu_New.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.Menu_New.Size = new System.Drawing.Size(147, 22);
+            this.Menu_New.Size = new System.Drawing.Size(152, 22);
             this.Menu_New.Text = "新建";
             this.Menu_New.Click += new System.EventHandler(this.Menu_New_Click);
             // 
@@ -105,7 +107,7 @@
             // 
             this.Menu_Open.Name = "Menu_Open";
             this.Menu_Open.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.Menu_Open.Size = new System.Drawing.Size(147, 22);
+            this.Menu_Open.Size = new System.Drawing.Size(152, 22);
             this.Menu_Open.Text = "打开";
             this.Menu_Open.Click += new System.EventHandler(this.Menu_Open_Click);
             // 
@@ -113,20 +115,20 @@
             // 
             this.Menu_Save.Name = "Menu_Save";
             this.Menu_Save.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.Menu_Save.Size = new System.Drawing.Size(147, 22);
+            this.Menu_Save.Size = new System.Drawing.Size(152, 22);
             this.Menu_Save.Text = "保存";
             this.Menu_Save.Click += new System.EventHandler(this.Menu_Save_Click);
             // 
             // Menu_SaveAs
             // 
             this.Menu_SaveAs.Name = "Menu_SaveAs";
-            this.Menu_SaveAs.Size = new System.Drawing.Size(147, 22);
+            this.Menu_SaveAs.Size = new System.Drawing.Size(152, 22);
             this.Menu_SaveAs.Text = "另存为";
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             // 
             // 编辑ToolStripMenuItem
@@ -137,12 +139,21 @@
             this.编辑ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.编辑ToolStripMenuItem.Text = "编辑";
             // 
+            // Menu_Del
+            // 
+            this.Menu_Del.Name = "Menu_Del";
+            this.Menu_Del.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.Menu_Del.Size = new System.Drawing.Size(152, 22);
+            this.Menu_Del.Text = "删除";
+            this.Menu_Del.Click += new System.EventHandler(this.Menu_Del_Click);
+            // 
             // 工具ToolStripMenuItem
             // 
             this.工具ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_ShowGrid,
             this.Menu_AreaBrush,
-            this.Menu_DefaultPath});
+            this.Menu_DefaultPath,
+            this.Menu_Check});
             this.工具ToolStripMenuItem.Name = "工具ToolStripMenuItem";
             this.工具ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.工具ToolStripMenuItem.Text = "工具";
@@ -183,6 +194,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TB_New,
             this.TB_Open,
+            this.Tb_Check,
             this.TB_Save,
             this.toolStripSeparator1,
             this.TB_Del,
@@ -246,14 +258,6 @@
             // 
             this.Dlg_DefaultPath.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
-            // Menu_Del
-            // 
-            this.Menu_Del.Name = "Menu_Del";
-            this.Menu_Del.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.Menu_Del.Size = new System.Drawing.Size(145, 22);
-            this.Menu_Del.Text = "删除";
-            this.Menu_Del.Click += new System.EventHandler(this.Menu_Del_Click);
-            // 
             // TB_New
             // 
             this.TB_New.AutoSize = false;
@@ -277,6 +281,18 @@
             this.TB_Open.Text = "toolStripButton1";
             this.TB_Open.ToolTipText = "打开贴图";
             this.TB_Open.Click += new System.EventHandler(this.TB_Open_Click);
+            // 
+            // Tb_Check
+            // 
+            this.Tb_Check.AutoSize = false;
+            this.Tb_Check.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Tb_Check.Image = global::DFWEditor_Alpha.Properties.Resources.Build;
+            this.Tb_Check.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.Tb_Check.Name = "Tb_Check";
+            this.Tb_Check.Size = new System.Drawing.Size(32, 32);
+            this.Tb_Check.Text = "toolStripButton1";
+            this.Tb_Check.ToolTipText = "检查地图";
+            this.Tb_Check.Click += new System.EventHandler(this.Tb_Check_Click);
             // 
             // TB_Save
             // 
@@ -415,6 +431,14 @@
             this.MainPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseDown);
             this.MainPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainPanel_MouseUp);
             // 
+            // Menu_Check
+            // 
+            this.Menu_Check.Name = "Menu_Check";
+            this.Menu_Check.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.Menu_Check.Size = new System.Drawing.Size(176, 22);
+            this.Menu_Check.Text = "检查错误";
+            this.Menu_Check.Click += new System.EventHandler(this.Menu_Check_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -477,6 +501,8 @@
         private System.Windows.Forms.ToolStripButton Bt_Hospital;
         private System.Windows.Forms.ToolStripButton Bt_Jail;
         private System.Windows.Forms.ToolStripButton Bt_PlayerStart;
+        private System.Windows.Forms.ToolStripButton Tb_Check;
+        private System.Windows.Forms.ToolStripMenuItem Menu_Check;
     }
 }
 

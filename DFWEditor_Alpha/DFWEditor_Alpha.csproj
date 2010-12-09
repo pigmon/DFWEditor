@@ -101,6 +101,12 @@
     <Compile Include="ImageManager.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapGrid.cs" />
+    <Compile Include="OutPut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OutPut.Designer.cs">
+      <DependentUpon>OutPut.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DlgNew.resx">
@@ -123,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GridSettings.resx">
       <DependentUpon>GridSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OutPut.resx">
+      <DependentUpon>OutPut.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -177,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Close.bmp" />
+    <None Include="Resources\Build.png" />
     <None Include="Resources\bank.png" />
     <None Include="Resources\TransTarget.bmp" />
     <None Include="Resources\Jail.png" />

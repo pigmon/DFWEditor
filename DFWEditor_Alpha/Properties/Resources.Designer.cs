@@ -81,6 +81,13 @@ namespace DFWEditor_Alpha.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap Build {
+            get {
+                object obj = ResourceManager.GetObject("Build", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap del {
             get {
                 object obj = ResourceManager.GetObject("del", resourceCulture);
