@@ -224,21 +224,21 @@ namespace DFWEditor_Alpha
             G.currentTexture = new TexturePanel(G.currentMap.textureName, G.currentMap.imgList);
             this.splitContainer1.Panel1.Controls.Add(G.currentTexture);
 
-            JailControl jc = new JailControl();
-            MainPanel.Controls.Add(jc);
-            jc.Location = new Point(G.currentMap.info.jailExit.X * G.tileSize, G.currentMap.info.jailExit.Y * G.tileSize);
+            //JailControl jc = new JailControl();
+            //MainPanel.Controls.Add(jc);
+            //jc.Location = new Point(G.currentMap.info.jailExit.X * G.tileSize, G.currentMap.info.jailExit.Y * G.tileSize);
 
-            HospitalControl hc = new HospitalControl();
-            MainPanel.Controls.Add(hc);
-            hc.Location = new Point(G.currentMap.info.hospitalExit.X * G.tileSize, G.currentMap.info.hospitalExit.Y * G.tileSize);
+            //HospitalControl hc = new HospitalControl();
+            //MainPanel.Controls.Add(hc);
+            //hc.Location = new Point(G.currentMap.info.hospitalExit.X * G.tileSize, G.currentMap.info.hospitalExit.Y * G.tileSize);
 
-            int psCount = G.currentMap.info.playerStarts.Count();
-            for (int i = 0; i < psCount; i++)
-            {
-                PlayerStartControl pc = new PlayerStartControl();
-                MainPanel.Controls.Add(pc);
-                pc.Location = new Point(G.currentMap.info.playerStarts[i].X * G.tileSize, G.currentMap.info.playerStarts[i].Y * G.tileSize);
-            }
+            //int psCount = G.currentMap.info.playerStarts.Count();
+            //for (int i = 0; i < psCount; i++)
+            //{
+            //    PlayerStartControl pc = new PlayerStartControl();
+            //    MainPanel.Controls.Add(pc);
+            //    pc.Location = new Point(G.currentMap.info.playerStarts[i].X * G.tileSize, G.currentMap.info.playerStarts[i].Y * G.tileSize);
+            //}
 
             int gridCount = G.currentMap.grids.Count();
             for (int i = 0; i < gridCount; i++)
@@ -316,11 +316,11 @@ namespace DFWEditor_Alpha
                     G.currentMap.eStates.Remove(data);
                     data = null;
                 }
-                else if (G.currentGPO.type == (int)(G.gpoType.playerStart))
-                {
-                    Point pt = new Point(G.currentGPO.Location.X / G.tileSize, G.currentGPO.Location.Y / G.tileSize);
-                    G.currentMap.info.playerStarts.Remove(pt);
-                }
+                //else if (G.currentGPO.type == (int)(G.gpoType.playerStart))
+                //{
+                //    Point pt = new Point(G.currentGPO.Location.X / G.tileSize, G.currentGPO.Location.Y / G.tileSize);
+                //    G.currentMap.info.playerStarts.Remove(pt);
+                //}
 
                 G.currentMap.gamePlayes[G.currentGPO.Location.X / G.tileSize, G.currentGPO.Location.Y / G.tileSize] = 0;
                 G.currentGPO.Dispose();
@@ -525,27 +525,45 @@ namespace DFWEditor_Alpha
             }
             else if (G.operation == 4)
             {
-                HospitalControl hc = new HospitalControl();
-                MainPanel.Controls.Add(hc);
-                hc.Location = new Point(mousePt.X, mousePt.Y);
-                G.currentMap.gamePlayes[mousePt.X / G.tileSize, mousePt.Y / G.tileSize] = 4;
+                MapGrid grid = new MapGrid(mousePt.X / G.tileSize, mousePt.Y / G.tileSize);
+                GridControl gc = new GridControl();
+                MainPanel.Controls.Add(gc);
+                gc.Location = new Point(mousePt.X, mousePt.Y);
+                grid.bHospital = true;
+                gc.data = grid;
+                G.currentMap.grids.Add(grid);
+                G.currentMap.gamePlayes[mousePt.X / G.tileSize, mousePt.Y / G.tileSize] = 2;
                 G.currentMap.info.hospitalExit = new Point(mousePt.X / G.tileSize, mousePt.Y / G.tileSize);
+
+                G.currentMap.UpdateGrids();
             }
             else if (G.operation == 5)
             {
-                JailControl jc = new JailControl();
-                MainPanel.Controls.Add(jc);
-                jc.Location = new Point(mousePt.X, mousePt.Y);
-                G.currentMap.gamePlayes[mousePt.X / G.tileSize, mousePt.Y / G.tileSize] = 5;
+                MapGrid grid = new MapGrid(mousePt.X / G.tileSize, mousePt.Y / G.tileSize);
+                GridControl gc = new GridControl();
+                MainPanel.Controls.Add(gc);
+                gc.Location = new Point(mousePt.X, mousePt.Y);
+                grid.bJail = true;
+                gc.data = grid;
+                G.currentMap.grids.Add(grid);
+                G.currentMap.gamePlayes[mousePt.X / G.tileSize, mousePt.Y / G.tileSize] = 2;
                 G.currentMap.info.jailExit = new Point(mousePt.X / G.tileSize, mousePt.Y / G.tileSize);
+
+                G.currentMap.UpdateGrids();
             }
             else if (G.operation == 6)
             {
-                PlayerStartControl pc = new PlayerStartControl();
-                MainPanel.Controls.Add(pc);
-                pc.Location = new Point(mousePt.X, mousePt.Y);
-                G.currentMap.gamePlayes[mousePt.X / G.tileSize, mousePt.Y / G.tileSize] = 6;
+                MapGrid grid = new MapGrid(mousePt.X / G.tileSize, mousePt.Y / G.tileSize);
+                GridControl gc = new GridControl();
+                MainPanel.Controls.Add(gc);
+                gc.Location = new Point(mousePt.X, mousePt.Y);
+                grid.bPlayerStart = true;
+                gc.data = grid;
+                G.currentMap.grids.Add(grid);
+                G.currentMap.gamePlayes[mousePt.X / G.tileSize, mousePt.Y / G.tileSize] = 2;
                 G.currentMap.info.playerStarts.Add(new Point(mousePt.X / G.tileSize, mousePt.Y / G.tileSize));
+
+                G.currentMap.UpdateGrids();
             }
 
             MainPanel.Refresh();

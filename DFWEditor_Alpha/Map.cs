@@ -93,8 +93,16 @@ namespace DFWEditor_Alpha
 
         public void CheckGrids()
         {
+            info.playerStarts.Clear();
             for (int i = 0; i < grids.Count(); i++)
             {
+                if (grids[i].bHospital)
+                    info.hospitalExit = new Point(grids[i].x, grids[i].y);
+                if (grids[i].bJail)
+                    info.jailExit = new Point(grids[i].x, grids[i].y);
+                if (grids[i].bPlayerStart)
+                    info.playerStarts.Add(new Point(grids[i].x, grids[i].y));
+
                 List<Point> _nbs = new List<Point>();
                 if (grids[i].x > 0)
                     _nbs.Add(new Point(grids[i].x - 1, grids[i].y));
@@ -132,6 +140,18 @@ namespace DFWEditor_Alpha
             }
         }
 
+        public void UpdateGrids()
+        {
+            for (int i = 0; i < grids.Count(); i++)
+            {
+                Point loc = new Point(grids[i].x, grids[i].y);
+                if (info.hospitalExit != loc)
+                    grids[i].bHospital = false;
+                if (info.jailExit != loc)
+                    grids[i].bJail = false;
+            }
+        }
+
         public void Save()
         {
             CheckGrids();
@@ -160,26 +180,13 @@ namespace DFWEditor_Alpha
                     sw.WriteLine();
                 }
 
-                sw.WriteLine("// GPO info");
-                sw.WriteLine(info.jailExit.X);
-                sw.WriteLine(info.jailExit.Y);
-                sw.WriteLine(info.hospitalExit.X);
-                sw.WriteLine(info.hospitalExit.Y);
-                int startCount = info.playerStarts.Count();
-                sw.WriteLine(startCount);
-                for (int i = 0; i < startCount; i++)
-                {
-                    sw.Write(info.playerStarts[i].X + "," + info.playerStarts[i].Y + ",");
-                }
-                sw.WriteLine();
-
                 sw.WriteLine("//Grids");
                 int gCount = grids.Count();
                 sw.WriteLine(gCount);
                 for (int i = 0; i < gCount; i++)
                 {
                     //sw.WriteLine("//--Grid" + i);
-                    sw.WriteLine(grids[i].x + "," + grids[i].y + "," + grids[i].eventContainer + "," + grids[i].deity + "," + grids[i].bank);
+                    sw.WriteLine(grids[i].x + "," + grids[i].y + "," + grids[i].eventContainer + "," + grids[i].deity + "," + grids[i].bank + "," + grids[i].bHospital + "," + grids[i].bJail + "," + grids[i].bPlayerStart);
                     //sw.WriteLine("//----EState");
                     if (grids[i].eState != null)
                         sw.WriteLine(grids[i].eState.x + "," + grids[i].eState.y + "," + grids[i].eState.section + "," + grids[i].eState.basePrice);
@@ -361,43 +368,13 @@ namespace DFWEditor_Alpha
                     {
                         tiles[i, j] = Int32.Parse(nums[i]) - 1;
                     }
-                }
-
-                // GPO
-                sr.ReadLine();
-                int jailx = Int32.Parse(sr.ReadLine());
-                int jaily = Int32.Parse(sr.ReadLine());
-                info.jailExit = new Point(jailx, jaily);
-                if (jailx != -1 && jaily != -1)
-                    gamePlayes[jailx, jaily] = 5;
-                int hospitalx = Int32.Parse(sr.ReadLine());
-                int hospitaly = Int32.Parse(sr.ReadLine());
-                info.hospitalExit = new Point(hospitalx, hospitaly);
-                if (hospitalx != -1 && hospitaly != -1)
-                    gamePlayes[hospitalx, hospitaly] = 4;
-                int playerStartCount = Int32.Parse(sr.ReadLine());
-                if (playerStartCount > 0)
-                {
-                    String line = sr.ReadLine();
-                    String[] nums = line.Split(sep, StringSplitOptions.RemoveEmptyEntries);
-
-                    for (int j = 0; j < nums.Count() - 1; j += 2)
-                    {
-                        int x = Int32.Parse(nums[j]);
-                        int y = Int32.Parse(nums[j + 1]);
-                        Point pt = new Point(x, y);
-                        info.playerStarts.Add(pt);
-                        gamePlayes[x, y] = 6;
-                    }
-                }
-                else
-                    sr.ReadLine();
-                    
+                }                   
 
                 
                 // Grids
                 sr.ReadLine();
                 int gCount = Int32.Parse(sr.ReadLine());
+                info.playerStarts.Clear();
                 for (int i = 0; i < gCount; i++)
                 {
                     MapGrid grid = new MapGrid();
@@ -408,6 +385,15 @@ namespace DFWEditor_Alpha
                     grid.eventContainer = baseNums[2];
                     grid.deity = Int32.Parse(baseNums[3]);
                     grid.bank = Boolean.Parse(baseNums[4]);
+                    grid.bHospital = Boolean.Parse(baseNums[5]);
+                    if (grid.bHospital)
+                        info.hospitalExit = new Point(grid.x, grid.y);
+                    grid.bJail = Boolean.Parse(baseNums[6]);
+                    if (grid.bJail)
+                        info.jailExit = new Point(grid.x, grid.y);
+                    grid.bPlayerStart = Boolean.Parse(baseNums[7]);
+                    if (grid.bPlayerStart)
+                        info.playerStarts.Add(new Point(grid.x, grid.y));
 
                     String esLine = sr.ReadLine();
                     if (esLine != "null")
@@ -425,7 +411,7 @@ namespace DFWEditor_Alpha
                     String nbLine = sr.ReadLine();
                     String[] nbNums = nbLine.Split(sep, StringSplitOptions.RemoveEmptyEntries);
                     int nbCount = Int32.Parse(nbNums[0]);
-                    for (int j = 1; j < nbCount-1; j+=2)
+                    for (int j = 1; j < nbNums.Length - 1; j += 2)
                     {
                         int x = Int32.Parse(nbNums[j]);
                         int y = Int32.Parse(nbNums[j + 1]);

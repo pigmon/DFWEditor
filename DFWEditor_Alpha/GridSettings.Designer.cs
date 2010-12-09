@@ -32,12 +32,14 @@
             this.Bt_Cancel = new System.Windows.Forms.Button();
             this.Lb_Deity = new System.Windows.Forms.Label();
             this.Lb_Event = new System.Windows.Forms.Label();
-            this.Lb_Bank = new System.Windows.Forms.Label();
             this.Lb_Estate = new System.Windows.Forms.Label();
             this.CB_Deity = new System.Windows.Forms.ComboBox();
             this.CB_Event = new System.Windows.Forms.ComboBox();
             this.CB_Bank = new System.Windows.Forms.CheckBox();
             this.Lb_ESLoc = new System.Windows.Forms.Label();
+            this.Cb_Hospital = new System.Windows.Forms.CheckBox();
+            this.Cb_Jail = new System.Windows.Forms.CheckBox();
+            this.Cb_PlayerStart = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Bt_OK
@@ -78,19 +80,10 @@
             this.Lb_Event.TabIndex = 4;
             this.Lb_Event.Text = "事件：";
             // 
-            // Lb_Bank
-            // 
-            this.Lb_Bank.AutoSize = true;
-            this.Lb_Bank.Location = new System.Drawing.Point(13, 69);
-            this.Lb_Bank.Name = "Lb_Bank";
-            this.Lb_Bank.Size = new System.Drawing.Size(41, 12);
-            this.Lb_Bank.TabIndex = 5;
-            this.Lb_Bank.Text = "银行：";
-            // 
             // Lb_Estate
             // 
             this.Lb_Estate.AutoSize = true;
-            this.Lb_Estate.Location = new System.Drawing.Point(13, 97);
+            this.Lb_Estate.Location = new System.Drawing.Point(13, 72);
             this.Lb_Estate.Name = "Lb_Estate";
             this.Lb_Estate.Size = new System.Drawing.Size(41, 12);
             this.Lb_Estate.TabIndex = 6;
@@ -123,7 +116,7 @@
             // CB_Bank
             // 
             this.CB_Bank.AutoSize = true;
-            this.CB_Bank.Location = new System.Drawing.Point(151, 68);
+            this.CB_Bank.Location = new System.Drawing.Point(15, 106);
             this.CB_Bank.Name = "CB_Bank";
             this.CB_Bank.Size = new System.Drawing.Size(48, 16);
             this.CB_Bank.TabIndex = 9;
@@ -133,23 +126,55 @@
             // Lb_ESLoc
             // 
             this.Lb_ESLoc.AutoSize = true;
-            this.Lb_ESLoc.Location = new System.Drawing.Point(149, 97);
+            this.Lb_ESLoc.Location = new System.Drawing.Point(149, 72);
             this.Lb_ESLoc.Name = "Lb_ESLoc";
             this.Lb_ESLoc.Size = new System.Drawing.Size(29, 12);
             this.Lb_ESLoc.TabIndex = 10;
             this.Lb_ESLoc.Text = "null";
+            // 
+            // Cb_Hospital
+            // 
+            this.Cb_Hospital.AutoSize = true;
+            this.Cb_Hospital.Location = new System.Drawing.Point(151, 106);
+            this.Cb_Hospital.Name = "Cb_Hospital";
+            this.Cb_Hospital.Size = new System.Drawing.Size(72, 16);
+            this.Cb_Hospital.TabIndex = 14;
+            this.Cb_Hospital.Text = "医院出口";
+            this.Cb_Hospital.UseVisualStyleBackColor = true;
+            // 
+            // Cb_Jail
+            // 
+            this.Cb_Jail.AutoSize = true;
+            this.Cb_Jail.Location = new System.Drawing.Point(151, 135);
+            this.Cb_Jail.Name = "Cb_Jail";
+            this.Cb_Jail.Size = new System.Drawing.Size(72, 16);
+            this.Cb_Jail.TabIndex = 15;
+            this.Cb_Jail.Text = "监狱出口";
+            this.Cb_Jail.UseVisualStyleBackColor = true;
+            // 
+            // Cb_PlayerStart
+            // 
+            this.Cb_PlayerStart.AutoSize = true;
+            this.Cb_PlayerStart.Location = new System.Drawing.Point(15, 135);
+            this.Cb_PlayerStart.Name = "Cb_PlayerStart";
+            this.Cb_PlayerStart.Size = new System.Drawing.Size(72, 16);
+            this.Cb_PlayerStart.TabIndex = 16;
+            this.Cb_PlayerStart.Text = "玩家起点";
+            this.Cb_PlayerStart.UseVisualStyleBackColor = true;
             // 
             // GridSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 306);
+            this.Controls.Add(this.Cb_PlayerStart);
+            this.Controls.Add(this.Cb_Jail);
+            this.Controls.Add(this.Cb_Hospital);
             this.Controls.Add(this.Lb_ESLoc);
             this.Controls.Add(this.CB_Bank);
             this.Controls.Add(this.CB_Event);
             this.Controls.Add(this.CB_Deity);
             this.Controls.Add(this.Lb_Estate);
-            this.Controls.Add(this.Lb_Bank);
             this.Controls.Add(this.Lb_Event);
             this.Controls.Add(this.Lb_Deity);
             this.Controls.Add(this.Bt_Cancel);
@@ -167,11 +192,13 @@
         private System.Windows.Forms.Button Bt_Cancel;
         private System.Windows.Forms.Label Lb_Deity;
         private System.Windows.Forms.Label Lb_Event;
-        private System.Windows.Forms.Label Lb_Bank;
         private System.Windows.Forms.Label Lb_Estate;
         private System.Windows.Forms.ComboBox CB_Deity;
         private System.Windows.Forms.ComboBox CB_Event;
         private System.Windows.Forms.CheckBox CB_Bank;
         private System.Windows.Forms.Label Lb_ESLoc;
+        private System.Windows.Forms.CheckBox Cb_Hospital;
+        private System.Windows.Forms.CheckBox Cb_Jail;
+        private System.Windows.Forms.CheckBox Cb_PlayerStart;
     }
 }

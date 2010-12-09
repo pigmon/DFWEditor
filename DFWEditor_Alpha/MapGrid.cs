@@ -14,13 +14,16 @@ namespace DFWEditor_Alpha
         public bool bank;
         public EState eState;
         public List<Point> neighbours;
+        public bool bHospital;
+        public bool bJail;
+        public bool bPlayerStart;
 
         public MapGrid()
         {
             x = y = -1;
             deity = -1;
             eventContainer = "null";
-            bank = false;
+            bank = bHospital = bJail = bPlayerStart = false;
             neighbours = new List<Point>();
         }
 
@@ -30,7 +33,7 @@ namespace DFWEditor_Alpha
             y = _y;
             deity = -1;
             eventContainer = "null";
-            bank = false;
+            bank = bHospital = bJail = bPlayerStart = false;
             neighbours = new List<Point>();
         }
 

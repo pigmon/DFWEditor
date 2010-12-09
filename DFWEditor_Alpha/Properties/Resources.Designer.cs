@@ -67,6 +67,13 @@ namespace DFWEditor_Alpha.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap bank {
+            get {
+                object obj = ResourceManager.GetObject("bank", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap brushArea {
             get {
                 object obj = ResourceManager.GetObject("brushArea", resourceCulture);

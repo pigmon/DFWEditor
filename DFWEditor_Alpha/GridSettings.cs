@@ -15,8 +15,11 @@ namespace DFWEditor_Alpha
         public String eventType;
         public bool bBank;
         public Point eStateLoc;
+        public bool bHospital;
+        public bool bJail;
+        public bool bPlayerStart;
 
-        public GridSettings(int _deity, String _eventType, bool _bBank, Point esLoc)
+        public GridSettings(int _deity, String _eventType, bool _bBank, bool _bHospital, bool _bJail, bool _bPlayerStart, Point esLoc)
         {
             InitializeComponent();
 
@@ -24,6 +27,13 @@ namespace DFWEditor_Alpha
             CB_Deity.SelectedIndex = deity;
             bBank = _bBank;
             CB_Bank.Checked = bBank;
+            bHospital = _bHospital;
+            Cb_Hospital.Checked = bHospital;
+            bJail = _bJail;
+            Cb_Jail.Checked = bJail;
+            bPlayerStart = _bPlayerStart;
+            Cb_PlayerStart.Checked = bPlayerStart;
+
 
             if (_eventType == "Player")
             {
@@ -53,6 +63,9 @@ namespace DFWEditor_Alpha
             else
                 eventType = "null";
             bBank = CB_Bank.Checked;
+            bHospital = Cb_Hospital.Checked;
+            bJail = Cb_Jail.Checked;
+            bPlayerStart = Cb_PlayerStart.Checked;
 
             DialogResult = DialogResult.OK;
             Close();

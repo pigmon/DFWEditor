@@ -98,27 +98,9 @@
     <Compile Include="GridSettings.Designer.cs">
       <DependentUpon>GridSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="HospitalControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="HospitalControl.Designer.cs">
-      <DependentUpon>HospitalControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="ImageManager.cs" />
-    <Compile Include="JailControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="JailControl.Designer.cs">
-      <DependentUpon>JailControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Map.cs" />
     <Compile Include="MapGrid.cs" />
-    <Compile Include="PlayerStartControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PlayerStartControl.Designer.cs">
-      <DependentUpon>PlayerStartControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DlgNew.resx">
@@ -141,15 +123,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GridSettings.resx">
       <DependentUpon>GridSettings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HospitalControl.resx">
-      <DependentUpon>HospitalControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="JailControl.resx">
-      <DependentUpon>JailControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PlayerStartControl.resx">
-      <DependentUpon>PlayerStartControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -204,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Close.bmp" />
+    <None Include="Resources\bank.png" />
     <None Include="Resources\TransTarget.bmp" />
     <None Include="Resources\Jail.png" />
     <None Include="Resources\hospital.png" />
