@@ -37,6 +37,7 @@
             this.CB_Deity = new System.Windows.Forms.ComboBox();
             this.CB_Event = new System.Windows.Forms.ComboBox();
             this.CB_Bank = new System.Windows.Forms.CheckBox();
+            this.Lb_ESLoc = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Bt_OK
@@ -129,11 +130,21 @@
             this.CB_Bank.Text = "银行";
             this.CB_Bank.UseVisualStyleBackColor = true;
             // 
+            // Lb_ESLoc
+            // 
+            this.Lb_ESLoc.AutoSize = true;
+            this.Lb_ESLoc.Location = new System.Drawing.Point(149, 97);
+            this.Lb_ESLoc.Name = "Lb_ESLoc";
+            this.Lb_ESLoc.Size = new System.Drawing.Size(29, 12);
+            this.Lb_ESLoc.TabIndex = 10;
+            this.Lb_ESLoc.Text = "null";
+            // 
             // GridSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 306);
+            this.Controls.Add(this.Lb_ESLoc);
             this.Controls.Add(this.CB_Bank);
             this.Controls.Add(this.CB_Event);
             this.Controls.Add(this.CB_Deity);
@@ -161,5 +172,6 @@
         private System.Windows.Forms.ComboBox CB_Deity;
         private System.Windows.Forms.ComboBox CB_Event;
         private System.Windows.Forms.CheckBox CB_Bank;
+        private System.Windows.Forms.Label Lb_ESLoc;
     }
 }

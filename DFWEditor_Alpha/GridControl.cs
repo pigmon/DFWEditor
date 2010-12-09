@@ -36,7 +36,13 @@ namespace DFWEditor_Alpha
             if (data == null)
                 return;
 
-            GridSettings gsDlg = new GridSettings(data.deity, data.eventContainer, data.bank);
+            Point esLoc;
+            if (data.eState != null)
+                esLoc = new Point(data.eState.x, data.eState.y);
+            else
+                esLoc = new Point(-1, -1);
+
+            GridSettings gsDlg = new GridSettings(data.deity, data.eventContainer, data.bank, esLoc);
             if (gsDlg.ShowDialog(this) == DialogResult.OK)
             {
                 data.bank = gsDlg.bBank;

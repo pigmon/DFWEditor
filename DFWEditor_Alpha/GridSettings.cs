@@ -14,8 +14,9 @@ namespace DFWEditor_Alpha
         public int deity;
         public String eventType;
         public bool bBank;
+        public Point eStateLoc;
 
-        public GridSettings(int _deity, String _eventType, bool _bBank)
+        public GridSettings(int _deity, String _eventType, bool _bBank, Point esLoc)
         {
             InitializeComponent();
 
@@ -39,6 +40,9 @@ namespace DFWEditor_Alpha
                 CB_Event.SelectedIndex = -1;
                 eventType = "";
             }
+
+            Lb_ESLoc.Text = "(" + esLoc.X.ToString() + " ," + esLoc.Y.ToString() + ")";
+            eStateLoc = esLoc;
         }
 
         private void Bt_OK_Click(object sender, EventArgs e)
