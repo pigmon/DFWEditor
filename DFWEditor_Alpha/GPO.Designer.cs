@@ -34,7 +34,10 @@
             // GPO
             // 
             this.Size = new System.Drawing.Size(64, 64);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.GPO_MouseMove);
             this.Click += new System.EventHandler(this.GPO_Click);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.GPO_MouseDown);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.GPO_MouseUp);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
