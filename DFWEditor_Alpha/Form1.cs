@@ -335,6 +335,10 @@ namespace DFWEditor_Alpha
                 if (G.currentGPO.type == (int)(G.gpoType.grid))
                 {
                     MapGrid data = ((GridControl)G.currentGPO).data;
+                    if (data.bHospital)
+                        G.currentMap.info.hospitalExit = new Point(-1, -1);
+                    if (data.bJail)
+                        G.currentMap.info.jailExit = new Point(-1, -1);
                     G.currentMap.gamePlayes[data.x, data.y] = 0;
                     G.currentMap.grids.Remove(data);
                     data = null;
